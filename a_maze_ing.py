@@ -1,14 +1,15 @@
+#!/usr/bin/env python3
 # ########################################################################### #
-#                                                                             #
+#   shebang: 1                                                                #
 #                                                          :::      ::::::::  #
-#   main.py                                              :+:      :+:    :+:  #
+#   a_maze_ing.py                                        :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
+#   By: nrasolom <nrasolom@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/04/29 17:00:15 by varandri            #+#    #+#            #
-#   Updated: 2026/04/29 17:07:06 by varandri           ###   ########.fr      #
+#   Updated: 2026/05/01 11:59:44 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
 if __name__ == "__main__":
-    print("A-maze-ing")
+    print("Amazing")
