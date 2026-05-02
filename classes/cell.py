@@ -11,8 +11,8 @@
 # ########################################################################### #
 
 class Cell:
-    def __init__(self, coordinate: tuple[int, int] = (0, 0)) -> None:
-        self._coordinate: tuple[int, int] = coordinate
+    def __init__(self, x: int, y: int) -> None:
+        self._coordinate: tuple[int, int] = (x, y)
         self._north: int = 1
         self._south: int = 1
         self._west: int = 1
