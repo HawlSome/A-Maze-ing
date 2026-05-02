@@ -4,3 +4,6 @@
 *.out
 *.gch
 .venv
+.gitignore
+__pycache__/
+.mypy_cache

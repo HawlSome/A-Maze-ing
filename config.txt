@@ -1,0 +1,8 @@
+#this is a config file
+
+WIDTH=20
+HEIGHT=15  #height of the maze
+ENTRY=0,0
+EXIT=19,14
+OUTPUT_FILE=maze.txt
+PERFECT=True
