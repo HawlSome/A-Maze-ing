@@ -6,9 +6,12 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/01 11:00:59 by varandri            #+#    #+#            #
-#   Updated: 2026/05/01 15:03:47 by varandri           ###   ########.fr      #
+#   Updated: 2026/05/02 11:56:14 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
+
+from .directions import Directions
+
 
 class Cell:
     def __init__(self, x: int, y: int) -> None:
@@ -22,32 +25,30 @@ class Cell:
     def get_coordinate(self) -> tuple[int, int]:
         return self._coordinate
 
-    def open_wall(self, wall: str = "") -> None:
-        wall = wall.lower()
+    def open_wall(self, wall: Directions) -> None:
         if self._isolation:
             return
-        if wall == "west":
+        if wall == Directions.WEST:
             self._west = 0
-        elif wall == "south":
+        elif wall == Directions.SOUTH:
             self._south = 0
-        elif wall == "east":
+        elif wall == Directions.EAST:
             self._east = 0
-        elif wall == "north":
+        elif wall == Directions.NORTH:
             self._north = 0
         else:
             return
 
-    def close_wall(self, wall: str = "") -> None:
-        wall = wall.lower()
+    def close_wall(self, wall: Directions) -> None:
         if self._isolation:
             return
-        if wall == "west":
+        if wall == Directions.WEST:
             self._west = 1
-        elif wall == "south":
+        elif wall == Directions.SOUTH:
             self._south = 1
-        elif wall == "east":
+        elif wall == Directions.EAST:
             self._east = 1
-        elif wall == "north":
+        elif wall == Directions.NORTH:
             self._north = 1
         else:
             return
