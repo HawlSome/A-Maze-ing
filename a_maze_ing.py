@@ -7,13 +7,14 @@
 #   By: nrasolom <nrasolom@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/04/29 17:00:15 by varandri            #+#    #+#            #
-#   Updated: 2026/05/02 14:22:51 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/05/02 15:18:08 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
 import sys
 from utils import get_config, generate_cells, save_output
 from exceptions.config_error import MissingConfigError
+from classes.cell import Wall, Cell
 
 
 if __name__ == "__main__":
@@ -22,6 +23,10 @@ if __name__ == "__main__":
         try:
             config = get_config(sys.argv[1])
             grid = generate_cells(config['width'], config['height'])
+            # if grid[0][1].has_wall(Wall.NORTH):
+            #     grid[0][1].open_wall(Wall.NORTH)
+            # for w in grid[0][1].walls_open():
+            #     grid[0][1].close_wall(w)
             save_output(grid, config)
 
         except MissingConfigError as e:

@@ -7,7 +7,7 @@
 #   By: nrasolom <nrasolom@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/01 11:00:59 by varandri            #+#    #+#            #
-#   Updated: 2026/05/02 14:17:56 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/05/02 15:10:14 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -38,6 +38,11 @@ class Cell:
 
     def has_wall(self, direction: "Wall") -> bool:
         return bool(self.walls & direction)
+
+    def walls_open(self) -> list["Wall"]:
+        return [wall for wall in
+                [Wall.NORTH, Wall.SOUTH, Wall.EAST, Wall.WEST]
+                if not self.has_wall(wall)]
 
     def open_wall(self, direction: "Wall") -> None:
         self.walls = self.walls & ~direction
