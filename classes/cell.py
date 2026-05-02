@@ -7,7 +7,7 @@
 #   By: nrasolom <nrasolom@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/01 11:00:59 by varandri            #+#    #+#            #
-#   Updated: 2026/05/02 15:10:14 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/05/02 16:06:32 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -32,7 +32,7 @@ class Wall(IntFlag):
 
 class Cell:
     def __init__(self, row: int, col: int) -> None:
-        self.coordination: tuple[int, int] = (row, col)
+        self.coordinate: tuple[int, int] = (row, col)
         self.walls = Wall.NORTH | Wall.EAST | Wall.WEST | Wall.SOUTH
         self.visited = False
 
