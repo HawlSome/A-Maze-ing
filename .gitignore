@@ -7,3 +7,4 @@
 .gitignore
 __pycache__/
 .mypy_cache
+maze.txt

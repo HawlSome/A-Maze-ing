@@ -7,7 +7,7 @@
 #   By: nrasolom <nrasolom@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/01 15:24:07 by nrasolom            #+#    #+#            #
-#   Updated: 2026/05/02 11:29:44 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/05/02 14:37:37 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -19,7 +19,7 @@ from exceptions.config_error import MissingConfigError
 def parse_config(file: str) -> dict[str, Any]:
     try:
         config_dict: dict[str, Any] = {}
-        errors: str = []
+        errors: list[str] = []
 
         with open(file, 'r') as config_file:
             for line in config_file:
