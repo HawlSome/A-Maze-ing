@@ -1,12 +1,12 @@
 # ########################################################################### #
 #                                                                             #
 #                                                          :::      ::::::::  #
-#   create_cells.py                                      :+:      :+:    :+:  #
+#   utils_cells.py                                       :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/01 15:56:09 by varandri            #+#    #+#            #
-#   Updated: 2026/05/01 17:13:47 by varandri           ###   ########.fr      #
+#   Updated: 2026/05/02 11:03:30 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -45,7 +45,7 @@ def get_neighbors(current: Cell, cells: list[list[Cell]]) -> list[Cell]:
 def connect_cells(a: Cell, b: Cell) -> None:
     a_x, a_y = a.get_coordinate()
     b_x, b_y = b.get_coordinate()
-    
+
     if (a_x < b_x):
         open_east(a, b)
     elif (a_x > b_x):
