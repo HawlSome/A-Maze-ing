@@ -7,14 +7,14 @@
 #   By: nrasolom <nrasolom@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/04/29 17:00:15 by varandri            #+#    #+#            #
-#   Updated: 2026/05/02 15:18:08 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/05/02 19:37:42 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
 import sys
 from utils import get_config, generate_cells, save_output
 from exceptions.config_error import MissingConfigError
-from classes.cell import Wall, Cell
+# from classes.cell import Wall, Cell
 
 
 if __name__ == "__main__":
