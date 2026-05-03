@@ -6,14 +6,16 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/01 13:27:16 by varandri            #+#    #+#            #
-#   Updated: 2026/05/02 11:03:01 by varandri           ###   ########.fr      #
+#   Updated: 2026/05/03 13:36:01 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
-from .cell import Cell
+from .cell import Cell, OriginCell
 from .directions import Directions
+from .maze import Maze
 
 __all__ = [
-    "Cell",
-    "Directions"
+    "Cell", "OriginCell",
+    "Directions",
+    "Maze"
 ]

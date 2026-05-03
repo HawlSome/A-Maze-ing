@@ -6,7 +6,7 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/02 10:47:39 by varandri            #+#    #+#            #
-#   Updated: 2026/05/02 11:08:33 by varandri           ###   ########.fr      #
+#   Updated: 2026/05/03 11:35:12 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -14,16 +14,16 @@ from enum import Enum
 
 
 class Directions(Enum):
-    WEST = "west"
-    SOUTH = "south"
-    EAST = "east"
-    NORTH = "north"
+    W = "west"
+    S = "south"
+    E = "east"
+    N = "north"
 
     def opposite(self) -> "Directions":
         opposites = {
-            Directions.NORTH: Directions.SOUTH,
-            Directions.SOUTH: Directions.NORTH,
-            Directions.EAST: Directions.WEST,
-            Directions.WEST: Directions.EAST
+            Directions.N: Directions.S,
+            Directions.S: Directions.N,
+            Directions.E: Directions.W,
+            Directions.W: Directions.E
         }
         return opposites[self]
