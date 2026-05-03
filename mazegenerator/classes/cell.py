@@ -1,12 +1,13 @@
+#!/usr/bin/env python3
 # ########################################################################### #
-#                                                                             #
+#   shebang: 1                                                                #
 #                                                          :::      ::::::::  #
 #   cell.py                                              :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
+#   By: nrasolom <nrasolom@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/01 11:00:59 by varandri            #+#    #+#            #
-#   Updated: 2026/05/03 11:35:52 by varandri           ###   ########.fr      #
+#   Updated: 2026/05/03 15:47:15 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -24,6 +25,18 @@ class Cell:
 
     def get_coordinate(self) -> tuple[int, int]:
         return self._coordinate
+
+    def has_wall(self, wall: Directions) -> int:
+        if wall == Directions.W:
+            return self._west
+        elif wall == Directions.S:
+            return self._south
+        elif wall == Directions.E:
+            return self._east
+        elif wall == Directions.N:
+            return self._north
+        else:
+            return
 
     def open_wall(self, wall: Directions) -> None:
         if self._visited:
