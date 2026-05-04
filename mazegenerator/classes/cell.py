@@ -62,6 +62,8 @@ class Cell:
     def get_hex(self) -> str:
         bits: list[int] = [self._west, self._south, self._east, self._north]
         int_value: int = int("".join(map(str, bits)), 2)
+        # if self.get_visit():
+        #     int_value = 0
         hex_value: str = hex(int_value)
         return hex_value[2:]
 
