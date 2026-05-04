@@ -45,13 +45,13 @@ def read_file(file: "str") -> dict[str, Any]:
             for line in f:
                 if "#" in line:
                     line = line[:line.index("#")].strip()
-                if not line:
+                if not line or line == "\n":
                     continue
                 if "=" not in line:
                     raise Exception("Found KEY with no assigned VALUE")
                 key, value = line.split("=", 1)
                 if "=" in value or not value.strip():
-                    raise Exception("Found a KEY with an empty VALUE")
+                    raise Exception("Found a KEY with an incorrect VALUE")
                 config[key.lower().strip()] = parse_value(value.strip())
             validate_config(config)
     except (Exception, FileNotFoundError) as e:
@@ -87,16 +87,20 @@ def validate_config(config: dict[str, Any]) -> None:
                 f"Incorrect format for the {key.upper()} value"
             )
         elif key in ("entry", "exit"):
-            w: int | None
-            h: int | None
-            w, h = ((config.get("width")), (config.get("height")))
-            if w and h:
+            w: int
+            h: int
+            x: int
+            y: int
+            
+            w, h = ((config["width"]), (config["height"]))
+            x, y = config[key]
+            if w and h and x and y:
                 w -= 1
                 h -= 1
-            if config[key] > (w, h) or config[key] < (0, 0):
-                raise Exception(
-                    f"{key.upper()} out of the maze bound ({w}, {h})"
-                )
+                if x < 0 or x > w or y < 0 or y > h:
+                    raise Exception(
+                        f"{key.upper()}({x}, {y}) out of the maze bound ({w}, {h})"
+                    )
         elif (key == "perfect" and not isinstance(value, bool)):
             raise Exception(
                 f"Incorrect format for the {key.upper()} value"
