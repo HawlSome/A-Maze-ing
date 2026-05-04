@@ -33,6 +33,7 @@ if __name__ == "__main__":
             print(current.get_hex(), end="")
             if x == len(cells[0]) - 1:
                 print()
+    print(cells[0][0].__class__.__name__)
     print(maze.get_entry())
     print(maze.get_exit())
     print(test)
