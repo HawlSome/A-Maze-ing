@@ -66,7 +66,7 @@ class Maze:
             len(pattern[0]),
             len(pattern)
         )
-        if w  < (w_pattern + 1) or h < (h_pattern + 1):
+        if w < (w_pattern + 1) or h < (h_pattern + 1):
             print(
                 f"Pattern dimension {w_pattern}x{h_pattern} is too big for"
                 f" the maze dimension {w}x{h}"

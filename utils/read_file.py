@@ -91,7 +91,7 @@ def validate_config(config: dict[str, Any]) -> None:
             h: int
             x: int
             y: int
-            
+
             w, h = ((config["width"]), (config["height"]))
             x, y = config[key]
             if w and h and x and y:
@@ -99,7 +99,8 @@ def validate_config(config: dict[str, Any]) -> None:
                 h -= 1
                 if x < 0 or x > w or y < 0 or y > h:
                     raise Exception(
-                        f"{key.upper()}({x}, {y}) out of the maze bound ({w}, {h})"
+                        f"{key.upper()}({x}, {y}) out of"
+                        f" the maze bound ({w}, {h})"
                     )
         elif (key == "perfect" and not isinstance(value, bool)):
             raise Exception(
