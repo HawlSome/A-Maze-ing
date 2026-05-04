@@ -20,7 +20,7 @@ from .utils_cells_walls import (
 def generate_cells(
         w: int, h: int, algorithm: str = "prims"
 ) -> list[list[Cell]] | list[list[OriginCell]]:
-    if algorithm.lower() not in "otigin shift":
+    if algorithm.lower() not in "origin shift":
         return [[Cell(x, y) for x in range(w)] for y in range(h)]
     cells = [[OriginCell(x, y) for x in range(w)] for y in range(h)]
     define_nexts(cells)
