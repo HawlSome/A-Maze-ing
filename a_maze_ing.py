@@ -13,6 +13,7 @@
 from mazegenerator.classes import Cell, Maze
 from mazegenerator.utils import connect_cells
 from utils import read_file
+import sys
 # from mazegenerator import MazeGenerator
 
 import sys
@@ -20,12 +21,18 @@ import sys
 if __name__ == "__main__":
     cell = Cell(1, 0)
     cell2 = Cell(1, 1)
-    connect_cells(cell, cell2)
-    print(cell.get_hex())
-    print(cell2.get_hex())
+    cell2.set_visit()
+    step = connect_cells(cell, cell2)
+    print(step)
+
     _, file = sys.argv
     test = read_file(file)
-    maze = Maze(test)
+    try:
+        maze = Maze(test)
+    except Exception as e:
+        print(e)
+        sys.exit()
+
     cells = maze.get_cells()
     for y in range((len(cells))):
         for x in range((len(cells[0]))):

@@ -20,5 +20,5 @@ clean:
 
 lint:
 	@flake8 . --exclude=.venv,__pycache__,.mypy_cache
-	@python3 -m mypy . --warn-return-any --warn-unused-ignore \
+	@mypy . --warn-return-any --warn-unused-ignore \
 	 --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs
