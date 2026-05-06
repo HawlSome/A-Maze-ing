@@ -6,12 +6,12 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/05 11:27:22 by varandri            #+#    #+#            #
-#   Updated: 2026/05/05 11:27:23 by varandri           ###   ########.fr      #
+#   Updated: 2026/05/06 11:08:36 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
-from .prims import prims_perfect
+from .prims import prims
 
 __all__ = [
-    "prims_perfect"
+    "prims"
 ]

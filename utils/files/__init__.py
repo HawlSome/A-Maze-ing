@@ -5,12 +5,12 @@
 #                                                      +:+ +:+         +:+    #
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
-#   Created: 2026/04/29 17:07:28 by varandri            #+#    #+#            #
-#   Updated: 2026/05/06 15:11:47 by varandri           ###   ########.fr      #
+#   Created: 2026/05/06 15:10:56 by varandri            #+#    #+#            #
+#   Updated: 2026/05/06 15:11:27 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
-from .files.read_file import read_file
+from .read_file import read_file
 
 
 __all__ = [
