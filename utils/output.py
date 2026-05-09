@@ -7,7 +7,7 @@
 #   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/02 14:15:57 by nrasolom            #+#    #+#            #
-#   Updated: 2026/05/09 11:33:04 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/05/09 12:20:47 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -21,3 +21,10 @@ def save_output(grid: list[list["Cell"]], config: dict[str, Any]) -> None:
             for x in range(config['width'] - 1):
                 file.write(grid[y][x].get_hex())
             file.write("\n")
+        
+        start = config['entry']
+        file.write("\n")
+        file.write(str(start[0]) + ', ' + str(start[1]))
+        end = config['exit']
+        file.write("\n")
+        file.write(str(end[0]) + ', ' + str(end[1]))

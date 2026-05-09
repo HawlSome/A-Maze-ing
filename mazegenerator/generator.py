@@ -7,13 +7,14 @@
 #   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/03 14:38:57 by varandri            #+#    #+#            #
-#   Updated: 2026/05/09 12:00:07 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/05/09 12:12:56 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
 from .classes import Maze, Cell
 from .algorithms.dfs import gen_imperfect_maze, gen_perfect_maze
 from typing import Any
+
 
 class MazeGenerator:
     def __init__(self, config: dict[str, Any]) -> None:
