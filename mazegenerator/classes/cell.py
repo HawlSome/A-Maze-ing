@@ -7,7 +7,7 @@
 #   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/01 11:00:59 by varandri            #+#    #+#            #
-#   Updated: 2026/05/09 12:04:22 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/05/09 15:30:05 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -22,6 +22,8 @@ class Cell:
         self._west: int = 1
         self._east: int = 1
         self._visited: bool = False
+        self._protected: bool = False
+        self._next: "Cell | None" = None
 
     def get_coordinate(self) -> tuple[int, int]:
         return self._coordinate
@@ -62,26 +64,28 @@ class Cell:
         else:
             return
 
+    def set_visit(self) -> None:
+        self._visited = True
+
+    def set_next(self, next: "Cell | None") -> None:
+        self._next = next
+
+    def set_protect(self) -> None:
+        self._protected = not self._protected
+
     def get_visit(self) -> bool:
         return self._visited
 
-    def set_visit(self) -> None:
-        self._visited = True
+    def get_next(self) -> "Cell | None":
+        return self._next
+
+    def get_protect(self) -> bool:
+        return self._protected
 
     def get_hex(self) -> str:
         bits: list[int] = [self._west, self._south, self._east, self._north]
         int_value: int = int("".join(map(str, bits)), 2)
+        # if self.get_visit():
+        #     int_value = 0
         hex_value: str = hex(int_value)
-        return hex_value[2:].upper()
-
-
-class OriginCell(Cell):
-    def __init__(self, x: int, y: int) -> None:
-        super().__init__(x, y)
-        self._next: OriginCell | None = None
-
-    def get_next(self) -> "OriginCell | None":
-        return self._next
-
-    def set_next(self, next: "OriginCell") -> None:
-        self._next = next
+        return hex_value[2:]

@@ -5,14 +5,13 @@
 #                                                      +:+ +:+         +:+    #
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
-#   Created: 2026/05/05 11:25:43 by varandri            #+#    #+#            #
-#   Updated: 2026/05/06 13:30:57 by varandri           ###   ########.fr      #
+#   Created: 2026/05/05 11:25:33 by varandri            #+#    #+#            #
+#   Updated: 2026/05/05 11:25:35 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
-from .generator import MazeGenerator
-
+from .patterns import forty_two
 
 __all__ = [
-    "MazeGenerator"
+    "forty_two"
 ]

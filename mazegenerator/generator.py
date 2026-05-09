@@ -7,27 +7,37 @@
 #   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/03 14:38:57 by varandri            #+#    #+#            #
-#   Updated: 2026/05/09 12:12:56 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/05/09 15:30:05 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
-from .classes import Maze, Cell
-from .algorithms.dfs import gen_imperfect_maze, gen_perfect_maze
+from .classes import Maze
+from .algorithms import prims
 from typing import Any
 
 
 class MazeGenerator:
     def __init__(self, config: dict[str, Any]) -> None:
         self._map: Maze = Maze(config)
+        self._algorithm: str | None = config.get("algotithm")
+        self._seed: int | None = config.get("seed")
         self._perfection: bool | None = config.get("perfect")
-        self._gen_steps: list[list[Cell]] | None = []
+        self._gen_steps: list[
+            (tuple[tuple[int, int], tuple[int, int]] | None)
+        ] = []
         self.generate()
 
     def generate(self) -> None:
-        if self._perfection:
-            self._gen_steps = gen_perfect_maze(self._map.get_cells())
-        else:
-            self._gen_steps = gen_imperfect_maze(self._map.get_cells(), 0.2)
+        self._gen_steps = prims(self._map, self._seed, self._perfection)
 
-    def get_generation(self) -> list[list[Cell]] | None:
+    def set_generation(
+            self, moves: list[
+                (tuple[tuple[int, int], tuple[int, int]] | None)
+            ]
+    ) -> None:
+        self._gen_steps = moves
+
+    def get_generation(
+            self
+    ) -> list[(tuple[tuple[int, int], tuple[int, int]] | None)]:
         return self._gen_steps

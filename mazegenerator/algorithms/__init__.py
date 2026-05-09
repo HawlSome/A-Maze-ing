@@ -5,14 +5,13 @@
 #                                                      +:+ +:+         +:+    #
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
-#   Created: 2026/05/05 11:25:43 by varandri            #+#    #+#            #
-#   Updated: 2026/05/06 13:30:57 by varandri           ###   ########.fr      #
+#   Created: 2026/05/05 11:27:22 by varandri            #+#    #+#            #
+#   Updated: 2026/05/06 11:08:36 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
-from .generator import MazeGenerator
-
+from .prims import prims
 
 __all__ = [
-    "MazeGenerator"
+    "prims"
 ]

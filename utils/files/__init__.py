@@ -5,14 +5,14 @@
 #                                                      +:+ +:+         +:+    #
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
-#   Created: 2026/05/05 11:25:43 by varandri            #+#    #+#            #
-#   Updated: 2026/05/06 13:30:57 by varandri           ###   ########.fr      #
+#   Created: 2026/05/06 15:10:56 by varandri            #+#    #+#            #
+#   Updated: 2026/05/06 15:11:27 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
-from .generator import MazeGenerator
+from .read_file import read_file
 
 
 __all__ = [
-    "MazeGenerator"
+    "read_file"
 ]

@@ -7,11 +7,11 @@
 #   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/04/29 17:07:28 by varandri            #+#    #+#            #
-#   Updated: 2026/05/09 11:46:03 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/05/09 15:31:40 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
-from .read_file import read_file
+from .files.read_file import read_file
 from .output import save_output
 
 
