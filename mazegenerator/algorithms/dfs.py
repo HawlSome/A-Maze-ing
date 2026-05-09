@@ -7,48 +7,52 @@
 #   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/02 19:14:38 by nrasolom            #+#    #+#            #
-#   Updated: 2026/05/09 12:03:01 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/05/09 16:38:13 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
-from ..classes.cell import Cell, Directions
+from ..classes import Cell, Directions, Maze
 from ..utils import get_neighbors, connect_cells
 import random
 
 
-def dfs(start_cell: "Cell", grid: list[list[Cell]]):
+def dfs_perfect(
+        maze: Maze, rand: random.Random
+) -> list[(tuple[tuple[int, int], tuple[int, int]] | None)]:
+
+    moves: list[(tuple[tuple[int, int], tuple[int, int]] | None)] = []
+
+    grid = maze.get_cells()
+    x = rand.randint(0, len(grid[0]) - 1)
+    y = rand.randint(0, len(grid) - 1)
+
+    start_cell = grid[y][x]
     stack = [start_cell]
     start_cell.set_visit()
 
     while stack:
         actual_cell = stack[-1]
-        univisited_neighbors = [cell
-                                for cell in get_neighbors(actual_cell, grid)
-                                if not cell.get_visit()]
+        neighbors = get_neighbors(actual_cell, grid)
 
-        if univisited_neighbors:
-            neighbor_cell = random.choice(univisited_neighbors)
-            connect_cells(actual_cell, neighbor_cell)
-            neighbor_cell.set_visit()
+        if neighbors:
+            neighbor_cell = rand.choice(neighbors)
+            connected = connect_cells(actual_cell, neighbor_cell)
+            if connected:
+                moves.append(connected)
             stack.append(neighbor_cell)
         else:
             stack.pop()
+    return moves
 
 
-def gen_perfect_maze(grid: list[list[Cell]]) -> list[list[Cell]]:
-    x = random.randint(0, len(grid[0]) - 1)
-    y = random.randint(0, len(grid) - 1)
+def dfs_imperfect(
+        maze: Maze, rand: random.Random, imperfection: float = 0.2
+) -> list[(tuple[tuple[int, int], tuple[int, int]] | None)]:
 
-    start_cell = grid[y][x]
-    dfs(start_cell, grid)
-    return grid
-
-
-def gen_imperfect_maze(grid: list[list[Cell]],
-                       imperfection: float) -> list[list[Cell]]:
-    gen_perfect_maze(grid)
+    moves = dfs_perfect(maze, rand)
 
     remaining_walls: list[tuple[Cell, Cell]] = []
+    grid = maze.get_cells()
 
     for y in range(len(grid)):
         for x in range(len(grid[0])):
@@ -63,8 +67,22 @@ def gen_imperfect_maze(grid: list[list[Cell]],
                     remaining_walls.append((cell, grid[y + 1][x]))
 
     walls_to_remove = int(len(remaining_walls) * imperfection)
-    selected_walls = random.sample(remaining_walls, walls_to_remove)
-    for actual_cell, neighbor in selected_walls:
-        connect_cells(actual_cell, neighbor)
+    selected_walls = rand.sample(remaining_walls, walls_to_remove)
+    # for actual_cell, neighbor in selected_walls:
+    #     connected = connect_cells(actual_cell, neighbor)
+    #     if connected:
+    #         moves.append(connected)
 
-    return grid
+    return moves
+
+
+def dfs(
+        maze: Maze, seed: int | None, perfect: bool | None = True
+) -> list[(tuple[tuple[int, int], tuple[int, int]] | None)]:
+    rand: random.Random = random.Random()
+    if seed:
+        rand = random.Random(seed)
+    if perfect:
+        return dfs_perfect(maze, rand)
+    else:
+        return dfs_imperfect(maze, rand)
