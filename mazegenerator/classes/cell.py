@@ -4,10 +4,10 @@
 #                                                          :::      ::::::::  #
 #   cell.py                                              :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: nrasolom <nrasolom@student.42antananarivo.   +#+  +:+       +#+       #
+#   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/01 11:00:59 by varandri            #+#    #+#            #
-#   Updated: 2026/05/03 15:47:15 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/05/09 12:04:22 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -39,8 +39,6 @@ class Cell:
             return
 
     def open_wall(self, wall: Directions) -> None:
-        if self._visited:
-            return
         if wall == Directions.W:
             self._west = 0
         elif wall == Directions.S:
@@ -53,8 +51,6 @@ class Cell:
             return
 
     def close_wall(self, wall: Directions) -> None:
-        if self._visited:
-            return
         if wall == Directions.W:
             self._west = 1
         elif wall == Directions.S:
@@ -76,7 +72,7 @@ class Cell:
         bits: list[int] = [self._west, self._south, self._east, self._north]
         int_value: int = int("".join(map(str, bits)), 2)
         hex_value: str = hex(int_value)
-        return hex_value[2:]
+        return hex_value[2:].upper()
 
 
 class OriginCell(Cell):

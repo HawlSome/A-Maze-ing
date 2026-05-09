@@ -4,14 +4,14 @@
 #                                                          :::      ::::::::  #
 #   output.py                                            :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: nrasolom <nrasolom@student.42antananarivo.   +#+  +:+       +#+       #
+#   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/02 14:15:57 by nrasolom            #+#    #+#            #
-#   Updated: 2026/05/02 21:44:40 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/05/09 11:33:04 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
-from classes.cell import Cell
+from mazegenerator.classes.cell import Cell
 from typing import Any
 
 

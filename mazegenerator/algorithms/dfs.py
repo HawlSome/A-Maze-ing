@@ -4,21 +4,21 @@
 #                                                          :::      ::::::::  #
 #   dfs.py                                               :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: nrasolom <nrasolom@student.42antananarivo.   +#+  +:+       +#+       #
+#   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/02 19:14:38 by nrasolom            #+#    #+#            #
-#   Updated: 2026/05/03 15:49:09 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/05/09 12:03:01 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
-from classes.cell import Cell, Directions
-from utils.utils_cells import get_neighbors, connect_cells
+from ..classes.cell import Cell, Directions
+from ..utils import get_neighbors, connect_cells
 import random
 
 
 def dfs(start_cell: "Cell", grid: list[list[Cell]]):
     stack = [start_cell]
-    start_cell.set_visit
+    start_cell.set_visit()
 
     while stack:
         actual_cell = stack[-1]
@@ -29,7 +29,7 @@ def dfs(start_cell: "Cell", grid: list[list[Cell]]):
         if univisited_neighbors:
             neighbor_cell = random.choice(univisited_neighbors)
             connect_cells(actual_cell, neighbor_cell)
-            neighbor_cell.set_visit
+            neighbor_cell.set_visit()
             stack.append(neighbor_cell)
         else:
             stack.pop()

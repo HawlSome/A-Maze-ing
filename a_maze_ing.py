@@ -1,38 +1,27 @@
+#!/usr/bin/env python3
 # ########################################################################### #
-#                                                                             #
+#   shebang: 1                                                                #
 #                                                          :::      ::::::::  #
 #   a_maze_ing.py                                        :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
+#   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/04/29 17:00:15 by varandri            #+#    #+#            #
-#   Updated: 2026/05/03 13:53:32 by varandri           ###   ########.fr      #
+#   Updated: 2026/05/09 11:54:22 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
-from mazegenerator.classes import Cell, Maze
-from mazegenerator.utils import connect_cells
-from utils import read_file
-# from mazegenerator import MazeGenerator
+from utils import read_file, save_output
+from mazegenerator import MazeGenerator
 
 import sys
 
 if __name__ == "__main__":
-    cell = Cell(1, 0)
-    cell2 = Cell(1, 1)
-    connect_cells(cell, cell2)
-    print(cell.get_hex())
-    print(cell2.get_hex())
-    _, file = sys.argv
-    test = read_file(file)
-    maze = Maze(test)
-    cells = maze.get_cells()
-    for y in range((len(cells))):
-        for x in range((len(cells[0]))):
-            current = cells[y][x]
-            print(current.get_hex(), end="")
-            if x == len(cells[0]) - 1:
-                print()
-    print(maze.get_entry())
-    print(maze.get_exit())
-    print(test)
+    print("A-maze-ing")
+    try:
+        config = read_file(sys.argv[1])
+        maze = MazeGenerator(config)
+        maze.generate()
+        save_output(maze.get_generation(), config)
+    except IndexError:
+        print(f"Usage : python3 {sys.argv[1]} config.txt")
