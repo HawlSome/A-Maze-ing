@@ -6,7 +6,7 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/01 15:56:09 by varandri            #+#    #+#            #
-#   Updated: 2026/05/05 17:34:24 by varandri           ###   ########.fr      #
+#   Updated: 2026/05/09 16:02:47 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -62,7 +62,7 @@ def get_neighbors(
 
 
 def connect_cells(
-        a: Cell, b: Cell
+        a: Cell, b: Cell, set_next: bool = False
 ) -> tuple[tuple[int, int], tuple[int, int]] | None:
     if b.get_visit() or b.get_protect():
         return None
@@ -83,6 +83,8 @@ def connect_cells(
         open_north(a, b)
     b.set_visit()
 
+    if set_next:
+        b.set_next(a)
     return ((a_x, a_y), (b_x, b_y))
 
 
@@ -108,28 +110,3 @@ def deconnect_cells(
         close_north(a, b)
 
     return ((a_x, a_y), (b_x, b_y))
-
-
-# def define_nexts(cells: list[list[OriginCell]]) -> None:
-#     x_max: int = len(cells[0])
-#     y_max: int = len(cells)
-
-#     for y in range(y_max):
-#         for x in range(x_max):
-
-#             if cells[y][x].get_visit():
-#                 continue
-
-#             if x < x_max - 1:
-#                 next_x: int = x + 1
-#                 # while next_x < x_max - 1 and cells[y][next_x].get_visit():
-#                 #     next_x += 1
-#                 # if not cells[y][next_x].get_visit():
-#                 cells[y][x].set_next(cells[y][next_x])
-
-#             if y < y_max - 1:
-#                 next_y: int = y + 1
-#                 # while next_y < y_max - 1 and cells[next_y][x].get_visit():
-#                 #     next_y += 1
-#                 # if not cells[y][next_y].get_visit():
-#                 cells[y][x].set_next(cells[next_y][x])

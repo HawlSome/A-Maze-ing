@@ -22,8 +22,9 @@ def prims_perfect(
     edges: list[tuple[Cell, Cell]] = []
     moves: list[(tuple[tuple[int, int], tuple[int, int]] | None)] = []
 
-    rand_y: int = rand.randint(0, len(cells) - 1)
-    rand_x: int = rand.randint(0, len(cells[rand_y]) - 1)
+    # rand_y: int = rand.randint(0, len(cells) - 1)
+    # rand_x: int = rand.randint(0, len(cells[rand_y]) - 1)
+    rand_x, rand_y = maze.get_exit()
     start: Cell = cells[rand_y][rand_x]
     start.set_visit()
     edges.extend(get_neighbors(start, cells))
@@ -32,7 +33,7 @@ def prims_perfect(
         rand.shuffle(edges)
         current: tuple[Cell, Cell] = rand.choice(edges)
         visited, unvisited = current
-        connection = connect_cells(visited, unvisited)
+        connection = connect_cells(visited, unvisited, True)
         if connection:
             moves.append(connection)
             neighbors = get_neighbors(unvisited, cells)
