@@ -7,7 +7,7 @@
 #   By: nrasolom <nrasolom@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/02 14:15:57 by nrasolom            #+#    #+#            #
-#   Updated: 2026/05/10 14:50:41 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/05/10 15:09:34 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -21,7 +21,7 @@ def save_output(maze: Maze, output_file: str) -> None:
     with open(output_file, 'w') as file:
         for y in range(len(grid)):
             for x in range(len(grid[0])):
-                file.write(grid[y][x].get_hex())
+                file.write(grid[y][x].get_hex().upper())
             file.write("\n")
 
         start = maze.get_entry()

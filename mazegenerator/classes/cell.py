@@ -4,10 +4,10 @@
 #                                                          :::      ::::::::  #
 #   cell.py                                              :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
+#   By: nrasolom <nrasolom@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/01 11:00:59 by varandri            #+#    #+#            #
-#   Updated: 2026/05/09 15:30:05 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/05/10 15:06:59 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -66,6 +66,9 @@ class Cell:
 
     def set_visit(self) -> None:
         self._visited = True
+
+    def unset_visit(self) -> None:
+        self._visited = False
 
     def set_next(self, next: "Cell | None") -> None:
         self._next = next

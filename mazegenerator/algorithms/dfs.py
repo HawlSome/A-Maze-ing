@@ -7,7 +7,7 @@
 #   By: nrasolom <nrasolom@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/02 19:14:38 by nrasolom            #+#    #+#            #
-#   Updated: 2026/05/10 14:41:33 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/05/10 15:07:28 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -69,6 +69,8 @@ def dfs_imperfect(
     walls_to_remove = int(len(remaining_walls) * imperfection)
     selected_walls = rand.sample(remaining_walls, walls_to_remove)
     for actual_cell, neighbor in selected_walls:
+        actual_cell.unset_visit()
+        neighbor.unset_visit()
         connected = connect_cells(actual_cell, neighbor)
         if connected:
             moves.append(connected)

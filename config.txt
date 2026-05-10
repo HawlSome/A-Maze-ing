@@ -9,5 +9,5 @@ ENTRY=2,4#
 #seed = 43
 EXIT=8,14
 OUTPUT_FILE=maze.txt
-PERFECT=True
+PERFECT=False
 ALGORITHM= dfs
