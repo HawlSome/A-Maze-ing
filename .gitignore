@@ -7,3 +7,4 @@
 *.pyc
 *.mypy*
 maze.txt
+mlx_venv/
