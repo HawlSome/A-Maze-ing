@@ -4,10 +4,10 @@
 #                                                          :::      ::::::::  #
 #   dfs.py                                               :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
+#   By: nrasolom <nrasolom@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/02 19:14:38 by nrasolom            #+#    #+#            #
-#   Updated: 2026/05/09 16:38:13 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/05/10 14:41:33 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -35,8 +35,8 @@ def dfs_perfect(
         neighbors = get_neighbors(actual_cell, grid)
 
         if neighbors:
-            neighbor_cell = rand.choice(neighbors)
-            connected = connect_cells(actual_cell, neighbor_cell)
+            neighbor_cell = rand.choice(neighbors)[1]
+            connected = connect_cells(actual_cell, neighbor_cell, True)
             if connected:
                 moves.append(connected)
             stack.append(neighbor_cell)
@@ -68,10 +68,10 @@ def dfs_imperfect(
 
     walls_to_remove = int(len(remaining_walls) * imperfection)
     selected_walls = rand.sample(remaining_walls, walls_to_remove)
-    # for actual_cell, neighbor in selected_walls:
-    #     connected = connect_cells(actual_cell, neighbor)
-    #     if connected:
-    #         moves.append(connected)
+    for actual_cell, neighbor in selected_walls:
+        connected = connect_cells(actual_cell, neighbor)
+        if connected:
+            moves.append(connected)
 
     return moves
 

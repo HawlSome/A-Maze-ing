@@ -6,5 +6,7 @@
 .venv
 *.pyc
 *.mypy*
-maze.txt
+*.txt
 mlx_venv/
+*.whl
+.gitignore
