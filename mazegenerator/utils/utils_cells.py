@@ -6,7 +6,7 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/01 15:56:09 by varandri            #+#    #+#            #
-#   Updated: 2026/05/09 16:02:47 by varandri           ###   ########.fr      #
+#   Updated: 2026/05/10 05:36:22 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -83,16 +83,16 @@ def connect_cells(
         open_north(a, b)
     b.set_visit()
 
-    if set_next:
-        b.set_next(a)
+    # if set_next:
+    #     b.set_next(a)
     return ((a_x, a_y), (b_x, b_y))
 
 
 def deconnect_cells(
         a: Cell, b: Cell
 ) -> tuple[tuple[int, int], tuple[int, int]] | None:
-    if a.get_next() is not b:
-        return None
+    # if a.get_next() is not b:
+    #     return None
     a_x: int
     b_x: int
     a_y: int

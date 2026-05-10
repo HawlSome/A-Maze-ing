@@ -6,12 +6,12 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/04/29 17:00:15 by varandri            #+#    #+#            #
-#   Updated: 2026/05/06 15:11:53 by varandri           ###   ########.fr      #
+#   Updated: 2026/05/10 05:46:09 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
 from mazegenerator import MazeGenerator
-from mazegenerator.classes import Cell
+# from mazegenerator.classes import Cell
 from utils import read_file
 # from mazegenerator import MazeGenerator
 
@@ -36,16 +36,16 @@ if __name__ == "__main__":
             if x == len(cells[0]) - 1:
                 print()
     print()
-    for y in range((len(cells))):
-        for x in range((len(cells[0]))):
-            current = cells[y][x]
-            next_cell: Cell | None = current.get_next()
-            n_x: int | None = None
-            n_y: int | None = None
-            if next_cell:
-                (n_x, n_y) = next_cell.get_coordinate()
-            print(f"({current.get_coordinate()}, {n_x, n_y})")
-            if x == len(cells[0]) - 1:
-                print()
+    # for y in range((len(cells))):
+    #     for x in range((len(cells[0]))):
+    #         current = cells[y][x]
+    #         # next_cell: Cell | None = current.get_next()
+    #         n_x: int | None = None
+    #         n_y: int | None = None
+    #         if next_cell:
+    #             (n_x, n_y) = next_cell.get_coordinate()
+    #         print(f"({current.get_coordinate()}, {n_x, n_y})")
+    #         if x == len(cells[0]) - 1:
+    #             print()
     print(maze.get_entry())
     print(maze.get_exit())
