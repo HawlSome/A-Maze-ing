@@ -4,10 +4,10 @@
 #                                                          :::      ::::::::  #
 #   output.py                                            :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
+#   By: nrasolom <nrasolom@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/02 14:15:57 by nrasolom            #+#    #+#            #
-#   Updated: 2026/05/16 11:06:34 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/05/16 16:59:31 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -17,7 +17,7 @@ from mazegenerator.classes.maze import Maze
 def save_output(
         maze: Maze, output_file: str,
         path: list[tuple[int, int]]
-    ) -> None:
+) -> None:
 
     grid = maze.get_cells()
 
@@ -35,7 +35,7 @@ def save_output(
         file.write(str(end[0]) + ', ' + str(end[1]))
 
         file.write("\n")
-        i : int = 0
+        i: int = 0
         for i in range(len(path) - 1):
             c_x, c_y = path[i]
             n_x, n_y = path[i + 1]
