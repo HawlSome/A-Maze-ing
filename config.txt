@@ -1,13 +1,13 @@
 WIDTH=20
 HEIGHT= 15
-ENTRY=2,4#
+ENTRY=0, 0
 
 
 
 
 
 #seed = 43
-EXIT=8,14
+EXIT=19, 14
 OUTPUT_FILE=maze.txt
 PERFECT=False
 ALGORITHM= dfs
