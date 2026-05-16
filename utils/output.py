@@ -4,17 +4,20 @@
 #                                                          :::      ::::::::  #
 #   output.py                                            :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: nrasolom <nrasolom@student.42antananarivo.   +#+  +:+       +#+       #
+#   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/02 14:15:57 by nrasolom            #+#    #+#            #
-#   Updated: 2026/05/10 15:09:34 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/05/16 11:06:34 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
 from mazegenerator.classes.maze import Maze
 
 
-def save_output(maze: Maze, output_file: str) -> None:
+def save_output(
+        maze: Maze, output_file: str,
+        path: list[tuple[int, int]]
+    ) -> None:
 
     grid = maze.get_cells()
 
@@ -30,3 +33,18 @@ def save_output(maze: Maze, output_file: str) -> None:
         end = maze.get_exit()
         file.write("\n")
         file.write(str(end[0]) + ', ' + str(end[1]))
+
+        file.write("\n")
+        i : int = 0
+        for i in range(len(path) - 1):
+            c_x, c_y = path[i]
+            n_x, n_y = path[i + 1]
+
+            if c_x < n_x:
+                file.write("E")
+            elif c_x > n_x:
+                file.write("W")
+            elif c_y < n_y:
+                file.write("S")
+            elif c_y > n_y:
+                file.write("N")

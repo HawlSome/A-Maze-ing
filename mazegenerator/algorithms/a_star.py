@@ -4,10 +4,10 @@
 #                                                          :::      ::::::::  #
 #   a_star.py                                            :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: nrasolom <nrasolom@student.42antananarivo.   +#+  +:+       +#+       #
+#   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/14 12:33:22 by nrasolom            #+#    #+#            #
-#   Updated: 2026/05/14 15:36:57 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/05/16 10:37:19 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -16,7 +16,7 @@ from ..classes import Cell, Maze
 from ..utils import get_accessible_neighbors
 
 
-def a_star(maze: Maze) -> dict[Cell, Cell]:
+def a_star(maze: Maze) -> list[tuple[int, int]]:
 
     grid = maze.get_cells()
     s_x, s_y = maze.get_entry()
@@ -34,10 +34,12 @@ def a_star(maze: Maze) -> dict[Cell, Cell]:
     counter = 0
     heapq.heappush(open_list, (h_score, counter, start_cell))
 
+    reached: bool = False
     while (open_list):
         f_score, _, current_cell = heapq.heappop(open_list)
 
         if current_cell == grid[e_y][e_x]:
+            reached = True
             break
 
         if current_cell in closed_list:
@@ -60,4 +62,17 @@ def a_star(maze: Maze) -> dict[Cell, Cell]:
 
         closed_list.add(current_cell)
 
-    return path
+    if not reached:
+        return []
+
+    steps = []
+
+    current_cell = grid[e_y][e_x]
+    while current_cell != start_cell:
+        steps.append(current_cell.get_coordinate())
+        current_cell = path[current_cell]
+
+    steps.append(start_cell.get_coordinate())
+    steps.reverse()
+
+    return steps

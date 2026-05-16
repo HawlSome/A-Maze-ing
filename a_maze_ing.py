@@ -4,10 +4,10 @@
 #                                                          :::      ::::::::  #
 #   a_maze_ing.py                                        :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: nrasolom <nrasolom@student.42antananarivo.   +#+  +:+       +#+       #
+#   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/04/29 17:00:15 by varandri            #+#    #+#            #
-#   Updated: 2026/05/10 14:52:24 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/05/16 10:49:43 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -29,7 +29,8 @@ if __name__ == "__main__":
     test = read_file(file)
     gen = MazeGenerator(test)
     maze = gen._map
-    save_output(maze, test['output_file'])
+    path = gen._path
+    save_output(maze, test['output_file'], path)
 
     cells = maze.get_cells()
     for y in range((len(cells))):
