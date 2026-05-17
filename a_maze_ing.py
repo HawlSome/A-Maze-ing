@@ -7,7 +7,7 @@
 #   By: nrasolom <nrasolom@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/04/29 17:00:15 by varandri            #+#    #+#            #
-#   Updated: 2026/05/16 22:42:53 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/05/17 13:49:48 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -39,7 +39,8 @@ if __name__ == "__main__":
     win_height = test['height'] * cell_size
     maze_display = MazeDisplayer(cell_size, wall_size,
                                  win_width, win_height)
-    maze_display.display(maze, gen.get_generation())
+    colors = [0xFF2B7FFF, 0xFF34A6F4, 0xFF075F5A]
+    maze_display.display(colors, maze, gen.get_generation())
 
     # cells = maze.get_cells()
     # for y in range((len(cells))):
