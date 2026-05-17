@@ -7,7 +7,7 @@
 #   By: nrasolom <nrasolom@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/02 19:14:38 by nrasolom            #+#    #+#            #
-#   Updated: 2026/05/10 15:07:28 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/05/17 11:02:39 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -27,6 +27,11 @@ def dfs_perfect(
     y = rand.randint(0, len(grid) - 1)
 
     start_cell = grid[y][x]
+    while start_cell.get_protect() is True:
+        x = rand.randint(0, len(grid[0]) - 1)
+        y = rand.randint(0, len(grid) - 1)
+        start_cell = grid[y][x]
+
     stack = [start_cell]
     start_cell.set_visit()
 
@@ -57,6 +62,8 @@ def dfs_imperfect(
     for y in range(len(grid)):
         for x in range(len(grid[0])):
             cell = grid[y][x]
+            if cell.get_protect() is True:
+                continue
 
             if x < len(grid[0]) - 1:
                 if cell.has_wall(Directions.E):
