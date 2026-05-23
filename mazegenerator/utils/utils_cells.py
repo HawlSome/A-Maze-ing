@@ -4,10 +4,10 @@
 #                                                          :::      ::::::::  #
 #   utils_cells.py                                       :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: nrasolom <nrasolom@student.42antananarivo.   +#+  +:+       +#+       #
+#   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/01 15:56:09 by varandri            #+#    #+#            #
-#   Updated: 2026/05/10 16:00:37 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/05/23 11:48:02 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -78,6 +78,10 @@ def get_accessible_neighbors(
         neighbors.append(cells[y - 1][x])
     if y < height and not current.has_wall(Directions.S):
         neighbors.append(cells[y + 1][x])
+
+    for neighbor in neighbors:
+        if neighbor.get_protect():
+            neighbors.remove(neighbor)
 
     return neighbors
 
