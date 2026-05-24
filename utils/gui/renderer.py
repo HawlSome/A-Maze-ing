@@ -6,7 +6,9 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/24 10:58:31 by varandri            #+#    #+#            #
-#   Updated: 2026/05/24 10:58:32 by varandri           ###   ########.fr      #
+#   Updated: 2026/05/24 12:50:53 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
+
+from threading import Thread
 
