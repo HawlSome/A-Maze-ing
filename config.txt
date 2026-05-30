@@ -1,13 +1,38 @@
-WIDTH=20
-HEIGHT= 15
-ENTRY=2,4#
+WIDTH=5
+HEIGHT= 5
+ENTRY=0,0#
 
 
 
 
 
 #seed = 43
-EXIT=8,14
+EXIT=1,1
 OUTPUT_FILE=maze.txt
 PERFECT=True
-algorithm = origin
+algorithm = dfs
+
+
+
+
+
+#d551797b979797955557
+#d3d416d02b87aba95797
+#d43babbaeaab86aa9547
+#d10402c2baaa85042b97
+#bee9687ac0446d6d4403
+#c116d452b85555117d6e
+#96ebd152a85553eed117
+#c7bad2f806fffad17aeb
+#bbac56fec157febc147a
+#868797fffafffbc14556
+#ad45453bfafd52969557
+#c555552afafffa878517
+#d11553c0147b940507c7
+#d6ebd052c1546d47abbb
+#bb9452d290517b978406
+#c46bd6d2a8785403c3c7
+#bd141556ead053e83857
+#c56d2d5152bc387ae857
+#d5116916d007a83ad053
+#d56ed6ed56c7eeeed47e

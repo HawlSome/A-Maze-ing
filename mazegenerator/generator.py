@@ -6,11 +6,11 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/03 14:38:57 by varandri            #+#    #+#            #
-#   Updated: 2026/05/10 06:44:11 by varandri           ###   ########.fr      #
+#   Updated: 2026/05/30 12:32:23 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
-from .classes import Maze, Solution, Directions
+from .classes import Maze, Solution, Directions, Cell
 from .algorithms import prims
 from typing import Any
 
@@ -48,3 +48,7 @@ class MazeGenerator:
     def get_solution(self) -> list[Directions]:
         solution: Solution = self._solution
         return (solution.get_solutions())
+
+    def get_walls(self, x: int, y: int) -> tuple[int, int, int, int]:
+        cells: list[list[Cell]] = self._map.get_cells()
+        return (cells[y][x].get_walls())

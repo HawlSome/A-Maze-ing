@@ -1,21 +1,16 @@
 #!/usr/bin/env python3
 # ########################################################################### #
-#                                                                             #
+#   shebang: 1                                                                #
 #                                                          :::      ::::::::  #
 #   __init__.py                                          :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
-#   Created: 2026/04/29 17:07:28 by varandri            #+#    #+#            #
-#   Updated: 2026/05/30 14:32:20 by varandri           ###   ########.fr      #
+#   Created: 2026/05/29 14:49:36 by varandri            #+#    #+#            #
+#   Updated: 2026/05/29 14:52:36 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
-from .files.read_file import read_file
-from .gui import PyMlx, Mlx, c_void_p, MazeDisplayer
+from .main import Mlx, PyMlx, c_void_p
 
-__all__ = [
-    "read_file",
-    "PyMlx", "Mlx", "c_void_p",
-    "MazeDisplayer"
-]
+__all__ = ["Mlx", "PyMlx", "c_void_p", "mlx"]

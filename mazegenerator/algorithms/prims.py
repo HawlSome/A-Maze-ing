@@ -1,12 +1,13 @@
+#!/usr/bin/env python3
 # ########################################################################### #
-#                                                                             #
+#   shebang: 1                                                                #
 #                                                          :::      ::::::::  #
 #   prims.py                                             :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/05 11:26:09 by varandri            #+#    #+#            #
-#   Updated: 2026/05/06 14:29:42 by varandri           ###   ########.fr      #
+#   Updated: 2026/05/30 22:39:44 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -22,24 +23,26 @@ def prims_perfect(
     edges: list[tuple[Cell, Cell]] = []
     moves: list[(tuple[tuple[int, int], tuple[int, int]] | None)] = []
 
-    # rand_y: int = rand.randint(0, len(cells) - 1)
-    # rand_x: int = rand.randint(0, len(cells[rand_y]) - 1)
-    rand_x, rand_y = maze.get_exit()
+    rand_y: int = rand.randint(0, len(cells) - 1)
+    rand_x: int = rand.randint(0, len(cells[rand_y]) - 1)
+    # rand_x, rand_y = maze.get_exit()
     start: Cell = cells[rand_y][rand_x]
     start.set_visit()
     edges.extend(get_neighbors(start, cells))
 
     while len(edges):
-        rand.shuffle(edges)
-        current: tuple[Cell, Cell] = rand.choice(edges)
+        i: int = rand.randint(0, len(edges) - 1)
+        current: tuple[Cell, Cell] = edges[i]
+        edges[i] = edges[0]
+        edges.pop(0)
+
         visited, unvisited = current
-        connection = connect_cells(visited, unvisited, True)
-        if connection:
+        connection: (
+            tuple[tuple[int, int], tuple[int, int]] | None
+        ) = connect_cells(visited, unvisited)
+        if (connection):
             moves.append(connection)
-            neighbors = get_neighbors(unvisited, cells)
-            rand.shuffle(neighbors)
-            edges.extend(neighbors)
-        edges.remove(current)
+            edges.extend(get_neighbors(unvisited, cells))
     return moves
 
 

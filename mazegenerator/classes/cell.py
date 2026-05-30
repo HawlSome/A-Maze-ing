@@ -6,7 +6,7 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/01 11:00:59 by varandri            #+#    #+#            #
-#   Updated: 2026/05/10 05:35:56 by varandri           ###   ########.fr      #
+#   Updated: 2026/05/30 14:56:01 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -54,20 +54,26 @@ class Cell:
     def set_visit(self) -> None:
         self._visited = True
 
-    # def set_next(self, next: "Cell | None") -> None:
-    #     self._next = next
-
     def set_protect(self) -> None:
         self._protected = not self._protected
 
     def get_visit(self) -> bool:
         return self._visited
 
-    # def get_next(self) -> "Cell | None":
-    #     return self._next
-
     def get_protect(self) -> bool:
         return self._protected
+
+    def get_walls(self) -> tuple[int, int, int, int]:
+        """Give a tuple of the walls of one cell in order (W, S, E, N)
+        Returns:
+            tuple[int, int, int, int]
+        """
+        return (
+            self._west,
+            self._south,
+            self._east,
+            self._north
+        )
 
     def get_hex(self) -> str:
         bits: list[int] = [self._west, self._south, self._east, self._north]
