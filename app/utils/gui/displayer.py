@@ -7,7 +7,7 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/24 10:58:25 by varandri            #+#    #+#            #
-#   Updated: 2026/06/01 22:42:48 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/01 22:57:05 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -193,21 +193,24 @@ class MazeDisplayer:
         Returns:
             None
         """
+        mlx: PyMlx = self._mlx
         bg, bg_renderer = self._background
-        fg, _ = self._foreground
+        fg, fg_renderer = self._foreground
         statics: Static = self._statics
 
         def safe_exit(data: None = None) -> None:
-            if self._background:
-                self._mlx.destroy_image(bg)
-            self._mlx.destroy_window(win)
-            self._mlx.loop_exit()
+            if bg:
+                mlx.destroy_image(bg)
+            if fg:
+                mlx.destroy_image(fg)
+            mlx.destroy_window(win)
+            mlx.loop_exit()
 
         def change_color(data: None = None) -> None:
             bg_renderer.fill_img(random_color())
-            self._mlx.clear_window(self._window)
-            self._mlx.put_image_to_window(self._window, bg, 0, 0)
-            self._mlx.put_image_to_window(self._window, fg, 0, 0)
+            mlx.clear_window(self._window)
+            mlx.put_image_to_window(self._window, bg, 0, 0)
+            mlx.put_image_to_window(self._window, fg, 0, 0)
 
         def on_key(key: int, data: None = None) -> None:
             if key == 113:
@@ -220,7 +223,7 @@ class MazeDisplayer:
                 statics.default_pattern = False
                 change_color()
 
-        self._mlx.key_hook(self._window, on_key)
-        self._mlx.hook(self._window, 33, 0, safe_exit)
-        self._mlx.loop()
-        self._mlx.release()
+        mlx.key_hook(self._window, on_key)
+        mlx.hook(self._window, 33, 0, safe_exit)
+        mlx.loop()
+        mlx.release()

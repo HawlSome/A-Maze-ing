@@ -3,12 +3,13 @@ HEIGHT= 20
 ENTRY=0,0#
 
 
+        #
+		#
 
 
-
-seed = 43
+#seed = 43
 EXIT=19,10
 OUTPUT_FILE=maze.txt
 PERFECT=True
 algorithm = dfs
-Pattern_COLOR = 0xfffffffff
+Pattern_COLOR = 0xffffffff
