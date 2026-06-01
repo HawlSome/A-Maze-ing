@@ -7,7 +7,7 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/24 10:58:25 by varandri            #+#    #+#            #
-#   Updated: 2026/06/01 22:57:05 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/01 23:16:30 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -110,16 +110,16 @@ class MazeDisplayer:
                 tuple[tuple[int, int], tuple[int, int]] | None
             ]
         ) -> None:
+            self._maze = MazeGenerator(self._config)
+            statics.run = True
             maze_steps.clear()
             statics.count = 0
             statics.default_pattern = True
-            self._maze = MazeGenerator(self._config)
             maze_steps.extend(self._maze.get_generation_step()[:])
             fg_renderer.fill_img(transparent)
             refresh_window()
             f = open("output_maze.py.txt", "w")
             f.close()
-            statics.run = True
             statics.regenerate = False
 
         def carve_pattern() -> None:
