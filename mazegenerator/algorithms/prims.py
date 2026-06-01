@@ -7,12 +7,12 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/05 11:26:09 by varandri            #+#    #+#            #
-#   Updated: 2026/06/01 22:26:50 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/01 23:05:32 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
 from ..classes import Cell, Maze
-from .. import get_neighbors, connect_cells
+from ..functions import get_neighbors, connect_cells
 import random
 
 

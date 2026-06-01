@@ -7,7 +7,7 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/03 14:38:57 by varandri            #+#    #+#            #
-#   Updated: 2026/06/01 22:26:50 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/01 23:04:39 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -15,9 +15,8 @@
 #     Maze, Solution, Directions, Cell,
 #     prims
 # )
-from .utils import (
-    Maze, Solution, Directions, Cell, prims_carver
-)
+from .classes import Maze, Solution, Directions, Cell
+from .algorithms import prims_carver
 from typing import Any
 
 
