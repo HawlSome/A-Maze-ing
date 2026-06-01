@@ -1,12 +1,13 @@
+#!/usr/bin/env python3
 # ########################################################################### #
-#                                                                             #
+#   shebang: 1                                                                #
 #                                                          :::      ::::::::  #
 #   cell.py                                              :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/01 11:00:59 by varandri            #+#    #+#            #
-#   Updated: 2026/05/30 14:56:01 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/01 19:34:23 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -55,7 +56,7 @@ class Cell:
         self._visited = True
 
     def set_protect(self) -> None:
-        self._protected = not self._protected
+        self._protected = True
 
     def get_visit(self) -> bool:
         return self._visited

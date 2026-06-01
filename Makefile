@@ -18,7 +18,8 @@ desactivate:
 clean:
 	@find . -type d -name "*cache*" | xargs rm -rf
 
-lint:
+lint: 
 	@flake8 . --exclude=.venv,__pycache__,.mypy_cache
 	@mypy . --warn-return-any --warn-unused-ignore \
 	 --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs
+	@$(MAKE) -s clean

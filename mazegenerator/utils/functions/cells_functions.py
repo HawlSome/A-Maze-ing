@@ -1,17 +1,18 @@
+#!/usr/bin/env python3
 # ########################################################################### #
-#                                                                             #
+#   shebang: 1                                                                #
 #                                                          :::      ::::::::  #
-#   utils_cells.py                                       :+:      :+:    :+:  #
+#   cells_functions.py                                   :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/01 15:56:09 by varandri            #+#    #+#            #
-#   Updated: 2026/05/10 05:36:22 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/01 19:37:28 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
 from ..classes import Cell
-from .utils_cells_walls import (
+from .walls_functions import (
     open_west, open_east, open_north, open_south,
     close_west, close_east, close_north, close_south
 )
@@ -64,7 +65,7 @@ def get_neighbors(
 def connect_cells(
         a: Cell, b: Cell, set_next: bool = False
 ) -> tuple[tuple[int, int], tuple[int, int]] | None:
-    if b.get_visit() or b.get_protect():
+    if b.get_visit() or b.get_protect() or a.get_protect():
         return None
     a_x: int
     b_x: int

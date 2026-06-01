@@ -1,17 +1,18 @@
+#!/usr/bin/env python3
 # ########################################################################### #
-#                                                                             #
+#   shebang: 1                                                                #
 #                                                          :::      ::::::::  #
 #   maze.py                                              :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/03 14:46:18 by varandri            #+#    #+#            #
-#   Updated: 2026/05/05 17:26:49 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/01 20:13:40 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
 from .cell import Cell
-from ..utils import generate_cells
+from ..functions import generate_cells
 from ..patterns import forty_two
 from typing import Any
 
@@ -19,6 +20,7 @@ from typing import Any
 class Maze:
     def __init__(self, config: dict[str, Any]) -> None:
         w, h = (config["width"], config["height"])
+        self._pattern_cells: list[tuple[int, int]] = []
         self.set_cells(w, h)
         self.set_pattern(w, h)
         self.set_entry(config["entry"])
@@ -42,7 +44,7 @@ class Maze:
                 )
 
     def set_cells(self, w: int, h: int) -> None:
-        self._cells = generate_cells(w, h)
+        self._cells: list[list[Cell]] = generate_cells(w, h)
 
     def set_pattern(self, w: int, h: int) -> None:
         pattern: list[list[str]] = forty_two
@@ -64,6 +66,7 @@ class Maze:
             for x in range(w_pattern):
                 if pattern[y][x] != " ":
                     self._cells[y_start + y][x_start + x].set_protect()
+                    self._pattern_cells.append((x_start + x, y_start + y))
 
     def set_entry(self, entry_coordinate: tuple[int, int]) -> None:
         self._entry: tuple[int, int] = entry_coordinate
@@ -79,3 +82,6 @@ class Maze:
 
     def get_exit(self) -> tuple[int, int]:
         return self._exit
+
+    def get_pattern_cells(self) -> list[tuple[int, int]]:
+        return self._pattern_cells

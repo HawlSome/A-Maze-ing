@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # ########################################################################### #
-#                                                                             #
+#   shebang: 1                                                                #
 #                                                          :::      ::::::::  #
 #   main.py                                              :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/26 16:38:17 by varandri            #+#    #+#            #
-#   Updated: 2026/05/30 14:06:34 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/01 22:03:23 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -109,23 +109,6 @@ class PyMlx:
         callback: Callable[..., Any], params: list[Any] = [None]
     ) -> Any:
         return self._mlx.mlx_hook(win, x_event, x_mask, callback, *params)
-
-    # def mass_loop_hook(
-    #     self, callbacks: list[Callable[..., Any]],
-    #     params: list[list[Any]]
-    # ) -> Any:
-    #     ret_values: list[Any] = []
-    #     if len(callbacks) != len(params):
-    #         raise ValueError(
-    #             "Missing either one of the following values: "
-    #             " callback, params"
-    #         )
-    #     x: int = len(callbacks)
-    #     for i in range(x):
-    #         ret_values.append(
-    #             self.loop_hook(callbacks[i], params[i])
-    #         )
-    #     return ret_values
 
     def mouse_hide(self) -> Any:
         return self._mlx.mlx_mouse_hide(self._ptr)

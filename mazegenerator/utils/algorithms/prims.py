@@ -7,12 +7,12 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/05 11:26:09 by varandri            #+#    #+#            #
-#   Updated: 2026/05/30 22:39:44 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/01 22:26:50 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
 from ..classes import Cell, Maze
-from ..utils import get_neighbors, connect_cells
+from .. import get_neighbors, connect_cells
 import random
 
 
@@ -25,7 +25,6 @@ def prims_perfect(
 
     rand_y: int = rand.randint(0, len(cells) - 1)
     rand_x: int = rand.randint(0, len(cells[rand_y]) - 1)
-    # rand_x, rand_y = maze.get_exit()
     start: Cell = cells[rand_y][rand_x]
     start.set_visit()
     edges.extend(get_neighbors(start, cells))
@@ -56,7 +55,7 @@ def prims_imperfect(
     return moves
 
 
-def prims(
+def prims_carver(
         maze: Maze, seed: int | None, perfect: bool | None = True
 ) -> list[(tuple[tuple[int, int], tuple[int, int]] | None)]:
     rand: random.Random = random.Random()

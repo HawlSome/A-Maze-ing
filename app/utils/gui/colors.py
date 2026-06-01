@@ -2,27 +2,29 @@
 # ########################################################################### #
 #   shebang: 1                                                                #
 #                                                          :::      ::::::::  #
-#   a_maze_ing.py                                        :+:      :+:    :+:  #
+#   colors.py                                            :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
-#   Created: 2026/04/29 17:00:15 by varandri            #+#    #+#            #
-#   Updated: 2026/06/01 22:07:38 by varandri           ###   ########.fr      #
+#   Created: 2026/06/01 13:16:48 by varandri            #+#    #+#            #
+#   Updated: 2026/06/01 16:40:04 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
-from app.utils import read_file, MazeDisplayer
+from random import randint
 
-import sys
+white: int = 0xFFFFFFFF
+black: int = 0x000000FF
+red: int = 0x0000FFFF
+green: int = 0x00FF00FF
+blue: int = 0xFF0000FF
+transparent: int = 0x00000000
 
 
-if __name__ == "__main__":
-    _, file = sys.argv
-    test = read_file(file)
-    cell_size = 1000 // test["width"]
-    wall_size = max(1, cell_size // 8)
-    win_width = test["width"] * cell_size
-    win_height = test["height"] * cell_size
-    displayer: MazeDisplayer = MazeDisplayer(
-        test, win_width, win_height, cell_size, wall_size
+def random_color() -> int:
+    color = (
+        (randint(0, 255) << 24) |
+        (randint(0, 255) << 16) |
+        (randint(0, 255) << 8) | (0xFF)
     )
+    return color

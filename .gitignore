@@ -8,3 +8,4 @@
 *.mypy*
 mlx*
 maze.txt
+*output*
