@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # ########################################################################### #
-#   shebang: 1                                                                #
+#                                                                             #
 #                                                          :::      ::::::::  #
 #   cell.py                                              :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/01 11:00:59 by varandri            #+#    #+#            #
-#   Updated: 2026/06/01 19:34:23 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/02 15:24:31 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -52,8 +52,20 @@ class Cell:
         else:
             return
 
+    def has_wall(self, wall: Directions) -> (int | None):
+        if wall == Directions.W:
+            return self._west
+        elif wall == Directions.S:
+            return self._south
+        elif wall == Directions.E:
+            return self._east
+        elif wall == Directions.N:
+            return self._north
+        else:
+            return None
+
     def set_visit(self) -> None:
-        self._visited = True
+        self._visited = not self._visited
 
     def set_protect(self) -> None:
         self._protected = True

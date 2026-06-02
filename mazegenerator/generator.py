@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # ########################################################################### #
-#   shebang: 1                                                                #
+#                                                                             #
 #                                                          :::      ::::::::  #
 #   generator.py                                         :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/03 14:38:57 by varandri            #+#    #+#            #
-#   Updated: 2026/06/01 23:04:39 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/02 15:37:37 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -16,7 +16,7 @@
 #     prims
 # )
 from .classes import Maze, Solution, Directions, Cell
-from .algorithms import prims_carver
+from .algorithms import prims_carver, dfs_carver
 from typing import Any
 
 
@@ -58,8 +58,18 @@ class MazeGenerator:
         """
         return self._map.get_exit()
 
+    def get_algo(self) -> str | None:
+        return self._algorithm
+
     def maze_generate(self) -> None:
-        self._gen_steps = prims_carver(self._map, self._seed, self._perfection)
+        if self._algorithm == "prims":
+            self._gen_steps = prims_carver(
+                self._map, self._seed, self._perfection
+            )
+        else:
+            self._gen_steps = dfs_carver(
+                self._map, self._seed, self._perfection
+            )
 
     def maze_solve(self, config: dict[str, Any]) -> None:
         algorithm: str | None = config.get("solver_algorithm")

@@ -11,5 +11,5 @@ ENTRY=0,0#
 EXIT=19,10
 OUTPUT_FILE=maze.txt
 PERFECT=True
-algorithm = dfs
+algorithm = prims
 Pattern_COLOR = 0xffffffff

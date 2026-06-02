@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 # ########################################################################### #
-#   shebang: 1                                                                #
+#                                                                             #
 #                                                          :::      ::::::::  #
 #   cells_functions.py                                   :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/01 15:56:09 by varandri            #+#    #+#            #
-#   Updated: 2026/06/01 19:37:28 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/02 15:26:43 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
-from ..classes import Cell
+from ..classes import Cell, Directions
 from .walls_functions import (
     open_west, open_east, open_north, open_south,
     close_west, close_east, close_north, close_south
@@ -59,6 +59,30 @@ def get_neighbors(
         not cells[y + 1][x].get_visit()
     ):
         neighbors.append((current, cells[y + 1][x]))
+    return neighbors
+
+
+def get_accessible_neighbors(
+        current: Cell, cells: list[list[Cell]]
+) -> list[Cell]:
+    neighbors: list[Cell] = []
+    width: int = len(cells[0]) - 1
+    height: int = len(cells) - 1
+    x, y = current.get_coordinate()
+
+    if x > 0 and not current.has_wall(Directions.W):
+        neighbors.append(cells[y][x - 1])
+    if x < width and not current.has_wall(Directions.E):
+        neighbors.append(cells[y][x + 1])
+    if y > 0 and not current.has_wall(Directions.N):
+        neighbors.append(cells[y - 1][x])
+    if y < height and not current.has_wall(Directions.S):
+        neighbors.append(cells[y + 1][x])
+
+    for neighbor in neighbors:
+        if neighbor.get_protect():
+            neighbors.remove(neighbor)
+
     return neighbors
 
 

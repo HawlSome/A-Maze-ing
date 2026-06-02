@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # ########################################################################### #
-#   shebang: 1                                                                #
+#                                                                             #
 #                                                          :::      ::::::::  #
 #   displayer.py                                         :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/24 10:58:25 by varandri            #+#    #+#            #
-#   Updated: 2026/06/01 23:16:30 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/02 15:50:07 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -16,6 +16,7 @@ from mazegenerator import MazeGenerator
 from typing import Any
 from .renderer import Renderer
 from .colors import random_color, transparent
+from time import sleep
 
 
 class Static:
@@ -94,6 +95,7 @@ class MazeDisplayer:
         bg, _ = self._background
         mlx: PyMlx = self._mlx
         maze: MazeGenerator = self._maze
+        algo: str | None = maze.get_algo()
         maze_steps: list[tuple[
             tuple[int, int], tuple[int, int]] |
             None
@@ -110,17 +112,21 @@ class MazeDisplayer:
                 tuple[tuple[int, int], tuple[int, int]] | None
             ]
         ) -> None:
-            self._maze = MazeGenerator(self._config)
-            statics.run = True
+            statics.run = False
             maze_steps.clear()
+            fg_renderer.fill_img(transparent)
+            self._maze = MazeGenerator(self._config)
             statics.count = 0
             statics.default_pattern = True
             maze_steps.extend(self._maze.get_generation_step()[:])
-            fg_renderer.fill_img(transparent)
             refresh_window()
             f = open("output_maze.py.txt", "w")
             f.close()
             statics.regenerate = False
+            if len(maze_steps):
+                statics.run = True
+            else:
+                regenerate(maze_steps)
 
         def carve_pattern() -> None:
             if not statics.default_pattern:
@@ -160,18 +166,21 @@ class MazeDisplayer:
                         x, y = maze_steps[0][0]
                     elif maze_steps[0] and statics.count:
                         x, y = maze_steps[0][1]
+                    elif maze_steps[0] and statics.count and algo == "dfs":
+                        statics.count += 1
                     else:
                         maze_steps.pop(0)
                         return
                     walls: tuple[
                         int, int, int, int
                     ] = self._maze.get_cell_walls(x, y)
+                    sleep(0.000000001)
                     renderer.draw_cell(x, y, walls)
                     if statics.count:
                         maze_steps.pop(0)
                     refresh_window()
                     statics.count += 1
-                else:
+                elif not len(maze_steps) and not statics.regenerate:
                     maze_entry: tuple[int, int] = self._maze.get_maze_entry()
                     maze_exit: tuple[int, int] = self._maze.get_maze_exit()
                     color = random_color()
@@ -199,6 +208,8 @@ class MazeDisplayer:
         statics: Static = self._statics
 
         def safe_exit(data: None = None) -> None:
+            statics.run = False
+            mlx.clear_window(win)
             if bg:
                 mlx.destroy_image(bg)
             if fg:
@@ -216,7 +227,6 @@ class MazeDisplayer:
             if key == 113:
                 safe_exit()
             if key == 114:
-                statics.run = False
                 statics.regenerate = True
             if key == 99:
                 statics.run = True
