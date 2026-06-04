@@ -7,7 +7,7 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/01 15:56:09 by varandri            #+#    #+#            #
-#   Updated: 2026/06/02 15:26:43 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/04 14:44:27 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -135,3 +135,157 @@ def deconnect_cells(
         close_north(a, b)
 
     return ((a_x, a_y), (b_x, b_y))
+
+
+def get_corridors(cell: Cell, grid: list[list[Cell]]) -> list[list[Cell]]:
+    x, y = cell.get_coordinate()
+    grid_width: int = len(grid[0])
+    grid_height: int = len(grid)
+    corridors: list[list[Cell]] = []
+    corridor_bound_edges: list[tuple[int, int]] = [
+        (x - 2, y + 2), (x + 2, y + 2),
+        (x - 2, y - 2), (x + 2, y - 2),
+    ]
+    corridor_bound_sides: dict[str, list[tuple[int, int]]] = {
+        "left": [(x - 2, y - 1), (x - 2, y + 1)],
+        "right": [(x + 2, y - 1), (x + 2, y + 1)],
+        "up": [(x - 1, y + 2,), (x + 1, y + 2)],
+        "down": [(x - 1, y - 2), (x + 1, y - 2)]
+    }
+    corridor_bound_central: list[tuple[int, int]] = [
+        (x - 1, x + 1),
+        (y - 1, y + 1)
+    ]
+
+    for bound in corridor_bound_edges:
+        corridor: list[Cell] = []
+        x_bound, y_bound = bound
+        if y < y_bound and y_bound < grid_height:
+            for j in range(y, y_bound + 1):
+                if x < x_bound and x_bound < grid_width:
+                    for i in range(x, x_bound + 1):
+                        corridor.append(grid[j][i])
+                if x > x_bound and x_bound >= 0:
+                    for i in range(x_bound, x + 1):
+                        corridor.append(grid[j][i])
+        if y > y_bound and y_bound >= 0:
+            for j in range(y_bound, y + 1):
+                if x < x_bound and x_bound < grid_width:
+                    for i in range(x, x_bound + 1):
+                        corridor.append(grid[j][i])
+                if x > x_bound and x_bound >= 0:
+                    for i in range(x_bound, x + 1):
+                        corridor.append(grid[j][i])
+        if len(corridor):
+            corridors.append(corridor)
+
+    for _, bounds in corridor_bound_sides.items():
+        corridor = []
+        (x_bound_a, y_bound_a), (x_bound_b, y_bound_b) = bounds
+        if (
+            y_bound_a in range(grid_height) and
+            y_bound_b in range(grid_height) and
+            x_bound_a in range(grid_width) and
+            x_bound_b in range(grid_width)
+        ):
+            if x_bound_a == x_bound_b:
+                for j in range(y_bound_a, y_bound_b + 1):
+                    if x_bound_a > x:
+                        for i in range(x, x_bound_a + 1):
+                            corridor.append(grid[j][i])
+                    if x_bound_a < x:
+                        for i in range(x_bound_a, x + 1):
+                            corridor.append(grid[j][i])
+            if y_bound_a == y_bound_b:
+                if y_bound_a > y:
+                    for j in range(y, y_bound_a + 1):
+                        for i in range(x_bound_a, x_bound_b + 1):
+                            corridor.append(grid[j][i])
+                if y_bound_a < y:
+                    for j in range(y_bound_a, y + 1):
+                        for i in range(x_bound_a, x_bound_b + 1):
+                            corridor.append(grid[j][i])
+        if len(corridor):
+            corridors.append(corridor)
+
+    (x_bound_a, x_bound_b), (y_bound_a, y_bound_b) = corridor_bound_central
+    if (
+        x_bound_a in range(grid_width) and
+        x_bound_b in range(grid_width) and
+        y_bound_a in range(grid_height) and
+        y_bound_b in range(grid_height)
+    ):
+        corridor = []
+        for j in range(y_bound_a, y_bound_b + 1):
+            for i in range(x_bound_a, x_bound_b + 1):
+                corridor.append(grid[j][i])
+        if len(corridor):
+            corridors.append(corridor)
+    return corridors
+
+
+def get_corridors_tuple(
+        corridors: list[list[Cell]]
+) -> list[list[tuple[int, int]]]:
+    return [
+        [cell.get_coordinate() for cell in corridor]
+        for corridor in corridors
+    ]
+
+
+def get_corridors_bounds(
+        corridors_tuple: list[list[tuple[int, int]]]
+) -> list[list[tuple[int, int]]]:
+    return [
+        [
+            (
+                min(coordinate[0] for coordinate in corridor),
+                max(coordinate[0] for coordinate in corridor)
+            ),
+            (
+                min(coordinate[1] for coordinate in corridor),
+                max(coordinate[1] for coordinate in corridor),
+            )
+        ]
+        for corridor in corridors_tuple
+    ]
+
+
+def get_corridor_walls(
+        corridors: list[list[Cell]],
+        grid: list[list[Cell]]
+) -> list[int] | None:
+    if not len(corridors):
+        return None
+    walls: list[int] = [0 for _ in corridors]
+    corridors_tuple: list[list[tuple[int, int]]] = get_corridors_tuple(
+        corridors
+    )
+    bound_coordinate: list[list[tuple[int, int]]] = get_corridors_bounds(
+        corridors_tuple
+    )
+    for i in range(len(corridors)):
+        corridor = corridors[i]
+        corridor_tuple = corridors_tuple[i]
+        (x_min, x_max), (y_min, y_max) = bound_coordinate[i]
+        total_walls: int = 0
+        for (cell, coordinate) in zip(corridor, corridor_tuple):
+            x, y = coordinate
+            cell_walls: int = sum(cell.get_walls())
+            if (
+                cell_walls and
+                x + 1 in range(x_min, x_max) and
+                (cell.has_wall(Directions.W)
+                 and grid[y][x + 1].has_wall(Directions.E))
+            ):
+                cell_walls -= 1
+            if (
+                cell_walls and
+                y + 1 in range(y_min, y_max) and
+                (cell.has_wall(Directions.S) and
+                 grid[y + 1][x].has_wall(Directions.N))
+            ):
+                cell_walls -= 1
+            total_walls += cell_walls
+        walls[i] = total_walls
+    return walls

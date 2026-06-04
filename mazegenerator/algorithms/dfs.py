@@ -7,12 +7,15 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/02 19:14:38 by nrasolom            #+#    #+#            #
-#   Updated: 2026/06/02 15:29:14 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/04 16:00:53 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
 from ..classes import Cell, Directions, Maze
-from ..functions import get_neighbors, connect_cells
+from ..functions import (
+    get_neighbors, connect_cells, get_corridors_tuple,
+    get_corridors_bounds, get_corridor_walls, get_corridors
+)
 import random
 
 
@@ -51,37 +54,65 @@ def dfs_perfect(
 
 
 def dfs_imperfect(
-        maze: Maze, rand: random.Random, imperfection: float = 0.2
+        maze: Maze, rand: random.Random, imperfection: float | None = None
 ) -> list[(tuple[tuple[int, int], tuple[int, int]] | None)]:
-
-    moves = dfs_perfect(maze, rand)
-
-    remaining_walls: list[tuple[Cell, Cell]] = []
-    grid = maze.get_cells()
-
-    for y in range(len(grid)):
-        for x in range(len(grid[0])):
-            cell = grid[y][x]
-            if cell.get_protect() is True:
+    moves: list[
+        (tuple[tuple[int, int], tuple[int, int]] | None)
+    ] = dfs_perfect(maze, rand)
+    grid: list[list[Cell]] = maze.get_cells()
+    total_walls: int = (len(grid) * len(grid[0]) * 4)
+    if imperfection is None:
+        imperfection = rand.random()
+    walls_to_remove: int = int(total_walls * imperfection)
+    for _ in range(len(grid)):
+        if not walls_to_remove:
+            break
+        for _ in range(len(grid[0])):
+            if not walls_to_remove:
+                break
+            x: int = rand.randint(0, len(grid[0]) - 1)
+            y: int = rand.randint(0, len(grid) - 1)
+            cell: Cell = grid[y][x]
+            if cell.get_protect():
                 continue
-
-            if x < len(grid[0]) - 1:
-                if cell.has_wall(Directions.E):
-                    remaining_walls.append((cell, grid[y][x + 1]))
-
-            if y < len(grid) - 1:
-                if cell.has_wall(Directions.S):
-                    remaining_walls.append((cell, grid[y + 1][x]))
-
-    walls_to_remove = int(len(remaining_walls) * imperfection)
-    selected_walls = rand.sample(remaining_walls, walls_to_remove)
-    for actual_cell, neighbor in selected_walls:
-        actual_cell.set_visit()
-        neighbor.set_visit()
-        connected = connect_cells(actual_cell, neighbor)
-        if connected:
-            moves.append(connected)
-
+            corridors: list[list[Cell]] = get_corridors(cell, grid)
+            corridors_bounds: list[
+                list[tuple[int, int]]
+            ] = get_corridors_bounds(
+                    get_corridors_tuple(corridors)
+            )
+            walls: list[int] | None = get_corridor_walls(corridors, grid)
+            if walls:
+                corridors_walls: list[
+                    tuple[list[Cell], int, list[tuple[int, int]]]
+                ] = [
+                    (corridor, wall, bounds)
+                    for (corridor, wall, bounds) in zip(
+                        corridors, walls, corridors_bounds
+                    )
+                    if wall > 9
+                ]
+                if corridors_walls:
+                    corridor, _, bounds = rand.choice(corridors_walls)
+                    cell = rand.choice(corridor)
+                    (x_min, x_max), (y_min, y_max) = bounds
+                    x, y = cell.get_coordinate()
+                    if (
+                        x in range(x_min, x_max) and
+                        cell.has_wall(Directions.E)
+                    ):
+                        cell.set_visit()
+                        grid[y][x + 1].set_visit()
+                        if (connect_cells(cell, grid[y][x + 1])) is not None:
+                            walls_to_remove -= 1
+                    if (
+                        y in range(y_min, y_max) and
+                        cell.has_wall(Directions.S)
+                    ):
+                        cell.set_visit()
+                        grid[y + 1][x].set_visit()
+                        if (connect_cells(cell, grid[y][x])) is not None:
+                            walls_to_remove -= 1
     return moves
 
 
