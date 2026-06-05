@@ -7,7 +7,7 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/01 15:56:09 by varandri            #+#    #+#            #
-#   Updated: 2026/06/04 14:44:27 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/05 12:32:55 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -252,9 +252,10 @@ def get_corridors_bounds(
 
 
 def get_corridor_walls(
-        corridors: list[list[Cell]],
+        cell: Cell,
         grid: list[list[Cell]]
 ) -> list[int] | None:
+    corridors: list[list[Cell]] = get_corridors(cell, grid)
     if not len(corridors):
         return None
     walls: list[int] = [0 for _ in corridors]
