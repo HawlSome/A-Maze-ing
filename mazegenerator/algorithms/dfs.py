@@ -7,7 +7,7 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/02 19:14:38 by nrasolom            #+#    #+#            #
-#   Updated: 2026/06/05 12:36:40 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/06 07:36:33 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -59,6 +59,11 @@ def dfs_imperfect(
         (tuple[tuple[int, int], tuple[int, int]] | None)
     ] = dfs_perfect(maze, rand)
     grid: list[list[Cell]] = maze.get_cells()
+    all_corridor: dict[tuple[int, int], (list[int] | None)] = {
+        (x, y): get_corridor_walls(grid[y][x], grid)
+        for y in range(len(grid))
+        for x in range(len(grid[0]))
+    }
     total_walls: int = (len(grid) * len(grid[0]) * 4)
     if imperfection is None:
         imperfection = rand.random()
@@ -76,27 +81,70 @@ def dfs_imperfect(
             x + 1 in range(len(grid[0])) and
             cell.has_wall(Directions.E)
         ):
-            walls_neighbor_west: list[int] | None = get_corridor_walls(
-                grid[y][x + 1], grid
-            )
+            walls_neighbor_west: list[int] | None = all_corridor[(x + 1, y)]
             if walls_neighbor_west and min(walls_neighbor_west) > 13:
                 cell.set_visit()
                 grid[y][x + 1].set_visit()
                 if (connect_cells(cell, grid[y][x + 1])) is not None:
                     walls_to_remove -= 1
+                    for delim_y in range(-2, 3):
+                        for delim_x in range(-2, 3):
+                            curr_x, curr_y = (x + delim_x, y + delim_y)
+                            curr_x_1, curr_y_1 = (
+                                (x + 1) + delim_x, y + delim_y
+                            )
+                            if (
+                                curr_x in range(len(grid[0])) and
+                                curr_y in range(len(grid))
+                            ):
+                                all_corridor[(curr_x, curr_y)] = (
+                                    get_corridor_walls(
+                                        grid[curr_y][curr_x], grid
+                                    )
+                                )
+                            if (
+                                curr_x_1 in range(len(grid[0])) and
+                                curr_y_1 in range(len(grid))
+                            ):
+                                all_corridor[(curr_x_1, curr_y_1)] = (
+                                    get_corridor_walls(
+                                        grid[curr_y_1][curr_x_1], grid
+                                    )
+                                )
         if (
             y + 1 in range(len(grid)) and
             cell.has_wall(Directions.S)
         ):
-            walls_neighbor_south: list[int] | None = get_corridor_walls(
-                grid[y + 1][x], grid
-            )
+            walls_neighbor_south: list[int] | None = all_corridor[(x, y + 1)]
             if walls_neighbor_south and min(walls_neighbor_south) > 13:
-                cell.set_visit()
                 cell.set_visit()
                 grid[y + 1][x].set_visit()
                 if (connect_cells(cell, grid[y + 1][x])) is not None:
                     walls_to_remove -= 1
+                    for delim_y in range(-2, 3):
+                        for delim_x in range(-2, 3):
+                            curr_x, curr_y = (x + delim_x, y + delim_y)
+                            curr_x_1, curr_y_1 = (
+                                x + delim_x, (y + 1) + delim_y
+                            )
+                            if (
+                                curr_x in range(len(grid[0])) and
+                                curr_y in range(len(grid))
+                            ):
+                                all_corridor[(curr_x, curr_y)] = (
+                                    get_corridor_walls(
+                                        grid[curr_y][curr_x], grid
+                                    )
+                                )
+                            if (
+                                curr_x_1 in range(len(grid[0])) and
+                                curr_y_1 in range(len(grid))
+                            ):
+                                all_corridor[(curr_x_1, curr_y_1)] = (
+                                    get_corridor_walls(
+                                        grid[curr_y_1][curr_x_1], grid
+                                    )
+                                )
     return moves
 
 
