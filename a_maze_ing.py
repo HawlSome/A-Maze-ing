@@ -7,7 +7,7 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/04/29 17:00:15 by varandri            #+#    #+#            #
-#   Updated: 2026/06/02 15:13:24 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/06 08:07:07 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -19,7 +19,11 @@ import sys
 if __name__ == "__main__":
     _, file = sys.argv
     test = read_file(file)
-    cell_size = 1000 // test["width"]
+    cell_size = 0
+    if test["width"] >= test["height"]:
+        cell_size = 1000 // test["width"]
+    else:
+        cell_size = 1000 // test["height"]
     wall_size = max(1, cell_size // 8)
     win_width = test["width"] * cell_size
     win_height = test["height"] * cell_size
