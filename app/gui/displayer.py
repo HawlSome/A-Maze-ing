@@ -7,7 +7,7 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/24 10:58:25 by varandri            #+#    #+#            #
-#   Updated: 2026/06/02 15:50:07 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/09 15:30:21 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -15,7 +15,7 @@ from .ft_mlx import PyMlx, c_void_p
 from mazegenerator import MazeGenerator
 from typing import Any
 from .renderer import Renderer
-from .colors import random_color, transparent
+from .colors import random_color, transparent, black
 from time import sleep
 
 
@@ -24,6 +24,8 @@ class Static:
     regenerate: bool = False
     default_pattern: bool = True
     count: int = 0
+    show_path: bool = True
+    run_path: bool = False
 
 
 class MazeDisplayer:
@@ -101,6 +103,7 @@ class MazeDisplayer:
             None
         ] = maze.get_generation_step()
         pattern_cells: list[tuple[int, int]] = maze.get_pattern_cells()
+        solution: list[tuple[int, int]] = maze.get_solution()
 
         def refresh_window() -> None:
             mlx.clear_window(self._window)
@@ -158,6 +161,34 @@ class MazeDisplayer:
                     n = 0
                 fg_renderer.fill_cell(*cells[i], (w, s, e, n), color)
 
+        def carve_path() -> None:
+            if statics.show_path and statics.run_path:
+                color: int = random_color()
+                for (x, y) in solution:
+                    if (
+                        (x, y) == maze.get_maze_entry() or
+                        (x, y) == maze.get_maze_exit()
+                    ):
+                        continue
+                    fg_renderer.fill_cell(
+                        x, y, maze.get_cell_walls(x, y), color
+                    )
+                    refresh_window()
+                    statics.run_path = False
+            if not statics.show_path and statics.run_path:
+                color = black
+                for (x, y) in solution:
+                    if (
+                        (x, y) == maze.get_maze_entry() or
+                        (x, y) == maze.get_maze_exit()
+                    ):
+                        continue
+                    fg_renderer.fill_cell(
+                        x, y, maze.get_cell_walls(x, y), color
+                    )
+                refresh_window()
+                statics.run_path = False
+
         def carve_maze(params: list[Any]) -> None:
             renderer = params[0]
             if statics.run:
@@ -181,17 +212,25 @@ class MazeDisplayer:
                     refresh_window()
                     statics.count += 1
                 elif not len(maze_steps) and not statics.regenerate:
+                    statics.run_path = True
                     maze_entry: tuple[int, int] = self._maze.get_maze_entry()
                     maze_exit: tuple[int, int] = self._maze.get_maze_exit()
                     color = random_color()
-                    renderer.fill_cell(*maze_entry, (1, 1, 1, 1), color)
-                    renderer.fill_cell(*maze_exit, (1, 1, 1, 1), color)
+                    renderer.fill_cell(
+                        *maze_entry, maze.get_cell_walls(*maze_entry), color
+                    )
+                    renderer.fill_cell(
+                        *maze_exit, maze.get_cell_walls(*maze_exit), color
+                    )
                     carve_pattern()
+                    carve_path()
                     refresh_window()
                     statics.run = False
 
             if statics.regenerate:
                 regenerate(maze_steps)
+
+            carve_path()
 
         mlx.loop_hook(carve_maze, [fg_renderer, maze_steps])
 
@@ -224,6 +263,9 @@ class MazeDisplayer:
             mlx.put_image_to_window(self._window, fg, 0, 0)
 
         def on_key(key: int, data: None = None) -> None:
+            if key == 112:
+                statics.run_path = True
+                statics.show_path = not statics.show_path
             if key == 113:
                 safe_exit()
             if key == 114:

@@ -7,7 +7,7 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/03 14:38:57 by varandri            #+#    #+#            #
-#   Updated: 2026/06/02 15:37:37 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/09 15:09:07 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -16,7 +16,7 @@
 #     prims
 # )
 from .classes import Maze, Solution, Directions, Cell
-from .algorithms import prims_carver, dfs_carver
+from .algorithms import prims_carver, dfs_carver, a_star
 from typing import Any
 
 
@@ -29,8 +29,9 @@ class MazeGenerator:
         self._gen_steps: list[
             (tuple[tuple[int, int], tuple[int, int]] | None)
         ] = []
+        self._solution: list[tuple[int, int]] = []
         self.maze_generate()
-        self.maze_solve(config)
+        self.maze_solve()
 
     def get_cell_walls(self, x: int, y: int) -> tuple[int, int, int, int]:
         """Get the walls of one cell in the coordinate (x, y) in the maze,
@@ -71,9 +72,8 @@ class MazeGenerator:
                 self._map, self._seed, self._perfection
             )
 
-    def maze_solve(self, config: dict[str, Any]) -> None:
-        algorithm: str | None = config.get("solver_algorithm")
-        self._solution: Solution = Solution(self._map, algorithm)
+    def maze_solve(self) -> None:
+        self._solution = a_star(self._map)
 
     def get_generation_step(
             self
@@ -86,15 +86,10 @@ class MazeGenerator:
         """
         return self._gen_steps
 
-    def get_solving_step(
+    def get_solution(
             self
-    ) -> list[tuple[tuple[int, int], tuple[int, int]]]:
-        solution: Solution = self._solution
-        return (solution.get_solving_step())
-
-    def get_solution(self) -> list[Directions]:
-        solution: Solution = self._solution
-        return (solution.get_solutions())
+    ) -> list[tuple[int, int]]:
+        return (self._solution)
 
     def get_pattern_cells(self) -> list[tuple[int, int]]:
         return self._map.get_pattern_cells()

@@ -1,5 +1,5 @@
 WIDTH= 20
-HEIGHT= 100
+HEIGHT= 20
 ENTRY=0,0
 
 
@@ -10,6 +10,6 @@ ENTRY=0,0
 seed = 43
 EXIT=3,3
 OUTPUT_FILE=maze.txt
-PERFECT=false
-algorithm = dfs
+PERFECT=True
+algorithm = Prims
 Pattern_COLOR = 0x00000000
