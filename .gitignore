@@ -5,3 +5,7 @@
 *.gch
 .venv
 *.pyc
+*.mypy*
+mlx*
+maze.txt
+*output*
