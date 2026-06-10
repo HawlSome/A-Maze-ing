@@ -1,4 +1,4 @@
-WIDTH= 10
+WIDTH= 20
 HEIGHT= 20
 ENTRY=0,0
 
@@ -10,6 +10,6 @@ ENTRY=0,0
 #seed = 43
 EXIT=3,3
 OUTPUT_FILE=output_maze.txt
-PERFECT=True
+PERFECT=False
 algorithm = Dfs
 Pattern_COLOR = 0x00000000

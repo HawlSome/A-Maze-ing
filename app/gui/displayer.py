@@ -7,7 +7,7 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/24 10:58:25 by varandri            #+#    #+#            #
-#   Updated: 2026/06/10 17:12:19 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/10 17:21:47 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -279,10 +279,12 @@ class MazeDisplayer:
                     maze_exit: tuple[int, int] = self._maze.get_maze_exit()
                     color = random_color()
                     renderer.fill_cell(
-                        *maze_entry, maze.get_cell_walls(*maze_entry), color
+                        *maze_entry, self._maze.get_cell_walls(*maze_entry),
+                        color
                     )
                     renderer.fill_cell(
-                        *maze_exit, maze.get_cell_walls(*maze_exit), color
+                        *maze_exit, self._maze.get_cell_walls(*maze_exit),
+                        color
                     )
                     carve_pattern()
                     carve_path(self._maze)

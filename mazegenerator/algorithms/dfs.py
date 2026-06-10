@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # ########################################################################### #
-#   shebang: 1                                                                #
+#                                                                             #
 #                                                          :::      ::::::::  #
 #   dfs.py                                               :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
+#   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/02 19:14:38 by nrasolom            #+#    #+#            #
-#   Updated: 2026/06/10 14:07:03 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/06/10 17:24:31 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -107,7 +107,6 @@ def dfs_imperfect(
     walls_to_remove: int = int(total_walls * imperfection)
     max_attempts: int = walls_to_remove * 5
     while walls_to_remove and max_attempts:
-        print("\r loading ...", end="")
         x: int = rand.randint(0, len(grid[0]) - 1)
         y: int = rand.randint(0, len(grid) - 1)
         cell: Cell = grid[y][x]
