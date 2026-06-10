@@ -7,13 +7,11 @@
 #   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/03 14:38:57 by varandri            #+#    #+#            #
-#   Updated: 2026/06/10 13:45:21 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/06/10 14:43:36 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
 from .classes.maze import Maze
-from .classes.solver import Solution
-from .classes.directions import Directions
 from .classes.cell import Cell
 from .algorithms import prims_carver, dfs_carver, a_star
 from .output_file import save_output
@@ -150,6 +148,7 @@ class MazeGenerator:
         """Return all protected pattern cell coordinates.
 
         Returns:
-            list[tuple[int, int]]: List of (x, y) coordinates that are protected.
+            list[tuple[int, int]]: List of (x, y) coordinates
+            that are protected.
         """
         return self._map.get_pattern_cells()

@@ -7,7 +7,7 @@
 #   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/14 12:33:22 by nrasolom            #+#    #+#            #
-#   Updated: 2026/06/10 11:27:15 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/06/10 14:31:31 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -33,7 +33,7 @@ def a_star(maze: Maze) -> list[tuple[int, int]]:
         both endpoints. Returns an empty list if no path exists.
     """
     grid: list[list[Cell]] = maze.get_cells()
-    s_x, s_y= maze.get_entry()
+    s_x, s_y = maze.get_entry()
     e_x, e_y = maze.get_exit()
 
     open_list: list[tuple[int, int, Cell]] = []

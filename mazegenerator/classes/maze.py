@@ -7,7 +7,7 @@
 #   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/03 14:46:18 by varandri            #+#    #+#            #
-#   Updated: 2026/06/10 13:03:26 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/06/10 14:33:06 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -33,10 +33,12 @@ class Maze:
                 - height (int): Maze grid height.
                 - entry (tuple[int, int]): Starting cell coordinates.
                 - exit (tuple[int, int]): Goal cell coordinates.
-                - output_file (str, optional): Output filename (default: "maze.txt").
+                - output_file (str, optional): Output filename
+                (default: "maze.txt").
 
         Raises:
-            Exception: If entry and exit are the same or overlap protected cells.
+            Exception: If entry and exit are the same or
+            overlap protected cells.
         """
         w, h = (config["width"], config["height"])
         self._output_file: str = config.get("output_file", "maze.txt")
@@ -51,7 +53,8 @@ class Maze:
         """Validate that entry and exit are valid and non-overlapping.
 
         Raises:
-            Exception: If entry equals exit or either overlaps a protected cell.
+            Exception: If entry equals exit or either
+            overlaps a protected cell.
         """
         if (self._entry == self._exit):
             raise Exception("Entry and Exit can't be on the same place")
@@ -152,7 +155,8 @@ class Maze:
         """Return all protected pattern cell coordinates.
 
         Returns:
-            list[tuple[int, int]]: List of (x, y) coordinates that are protected.
+            list[tuple[int, int]]: List of (x, y) coordinates
+            that are protected.
         """
         return self._pattern_cells
 
