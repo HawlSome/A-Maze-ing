@@ -7,7 +7,7 @@
 #   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/24 10:58:25 by varandri            #+#    #+#            #
-#   Updated: 2026/06/10 14:20:45 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/06/10 16:12:45 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -55,6 +55,7 @@ class MazeDisplayer:
             wall_pixel_size (int): Thickness of walls in pixels.
         """
         self._config: dict[str, Any] = config
+        self._win_height = win_height
         self._statics: Static = Static()
         self._mlx: PyMlx = PyMlx()
         self._maze: MazeGenerator = MazeGenerator(self._config)
@@ -141,11 +142,18 @@ class MazeDisplayer:
 
             Clears the window and rapidly copy a block of pixel data of
             the static background and the current foreground image buffers
-            to the display.
+            to the display. And put the help text every time.
             """
             mlx.clear_window(self._window)
             mlx.put_image_to_window(self._window, bg, 0, 0)
             mlx.put_image_to_window(self._window, fg, 0, 0)
+            mlx.put_str(
+                self._window,
+                10,
+                self._win_height - 32,
+                0xFF000000,
+                "c: change color  p: show/hide path  q: quit  r: regenerate"
+            )
 
         def regenerate(
             maze_steps: list[

@@ -7,7 +7,7 @@
 #   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/04/29 17:00:15 by varandri            #+#    #+#            #
-#   Updated: 2026/06/06 12:19:03 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/06/10 15:24:58 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -26,7 +26,7 @@ if __name__ == "__main__":
         cell_size = 1000 // test["height"]
     wall_size = max(1, cell_size // 8)
     win_width = test["width"] * cell_size
-    win_height = test["height"] * cell_size
+    win_height = test["height"] * cell_size + 30
     try:
         displayer: MazeDisplayer = MazeDisplayer(
             test, win_width, win_height, cell_size, wall_size
