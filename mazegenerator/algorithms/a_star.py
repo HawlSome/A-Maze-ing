@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # ########################################################################### #
-#                                                                             #
+#   shebang: 1                                                                #
 #                                                          :::      ::::::::  #
 #   a_star.py                                            :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
+#   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/14 12:33:22 by nrasolom            #+#    #+#            #
-#   Updated: 2026/06/02 15:26:20 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/10 14:31:31 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -17,8 +17,22 @@ from ..functions import get_accessible_neighbors
 
 
 def a_star(maze: Maze) -> list[tuple[int, int]]:
+    """Solve a maze using the A* pathfinding algorithm.
 
-    grid = maze.get_cells()
+    This function finds the shortest path from the maze entry point to
+    the exit point using A* search with Manhattan distance heuristic.
+    The maze must be pre-carved with accessible corridors.
+
+    Args:
+        maze (Maze): A maze instance with carved corridors and defined
+            entry and exit points to modify in-place.
+
+    Returns:
+        list[tuple[int, int]]: A list of (x, y) coordinate tuples
+        representing the shortest path from entry to exit, including
+        both endpoints. Returns an empty list if no path exists.
+    """
+    grid: list[list[Cell]] = maze.get_cells()
     s_x, s_y = maze.get_entry()
     e_x, e_y = maze.get_exit()
 

@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
 # ########################################################################### #
-#                                                                             #
+#   shebang: 1                                                                #
 #                                                          :::      ::::::::  #
 #   cells_functions.py                                   :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
+#   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/01 15:56:09 by varandri            #+#    #+#            #
-#   Updated: 2026/06/05 12:32:55 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/10 13:12:47 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
-from ..classes import Cell, Directions
+from ..classes.cell import Cell
+from ..classes.directions import Directions
 from .walls_functions import (
     open_west, open_east, open_north, open_south,
     close_west, close_east, close_north, close_south
@@ -19,21 +20,28 @@ from .walls_functions import (
 
 
 def generate_cells(
-        w: int, h: int, algorithm: str = "prims"
+        w: int, h: int
 ) -> list[list[Cell]]:
+    """Create a 2D grid of `Cell` objects.
+
+    Args:
+        w (int): Width of the grid (number of columns).
+        h (int): Height of the grid (number of rows).
+
+    Returns:
+        list[list[Cell]]: A list of rows, each a list of `Cell`.
+    """
     return [[Cell(x, y) for x in range(w)] for y in range(h)]
-    # cells: list[list[Cell]] = []
-    # for j in range(y):
-    #     row: list[Cell] = []
-    #     for i in range(x):
-    #         row.append(Cell(i, j))
-    #     cells.append(row)
-    # return cells
 
 
 def get_neighbors(
         current: Cell, cells: list[list[Cell]]
 ) -> list[tuple[Cell, Cell]]:
+    """Return unvisited, unprotected neighbor cell pairs of a given cell.
+
+    The returned list contains tuples of (current_cell, neighbor_cell)
+    for each adjacent cell that is not protected and not yet visited.
+    """
     neighbors: list[tuple[Cell, Cell]] = []
     width: int = len(cells[0]) - 1
     height: int = len(cells) - 1
@@ -65,6 +73,11 @@ def get_neighbors(
 def get_accessible_neighbors(
         current: Cell, cells: list[list[Cell]]
 ) -> list[Cell]:
+    """Return adjacent cells accessible from the current cell.
+
+    Accessibility is determined by the absence of a wall between the
+    current cell and the neighbor. Protected neighbors are filtered out.
+    """
     neighbors: list[Cell] = []
     width: int = len(cells[0]) - 1
     height: int = len(cells) - 1
@@ -87,8 +100,22 @@ def get_accessible_neighbors(
 
 
 def connect_cells(
-        a: Cell, b: Cell, set_next: bool = False
+        a: Cell, b: Cell
 ) -> tuple[tuple[int, int], tuple[int, int]] | None:
+    """Connect two adjacent cells by opening the shared wall.
+
+    The function validates that the target cell is not visited or
+    protected before opening the wall between `a` and `b` and marking
+    the target as visited.
+
+    Args:
+        a (Cell): Origin cell.
+        b (Cell): Destination cell.
+
+    Returns:
+        tuple[tuple[int,int], tuple[int,int]] | None: Coordinates of
+        the connected cells, or None if connection was not allowed.
+    """
     if b.get_visit() or b.get_protect() or a.get_protect():
         return None
     a_x: int
@@ -108,16 +135,22 @@ def connect_cells(
         open_north(a, b)
     b.set_visit()
 
-    # if set_next:
-    #     b.set_next(a)
     return ((a_x, a_y), (b_x, b_y))
 
 
 def deconnect_cells(
         a: Cell, b: Cell
 ) -> tuple[tuple[int, int], tuple[int, int]] | None:
-    # if a.get_next() is not b:
-    #     return None
+    """Disconnect two adjacent cells by closing their shared wall.
+
+    Args:
+        a (Cell): Origin cell.
+        b (Cell): Destination cell.
+
+    Returns:
+        tuple[tuple[int,int], tuple[int,int]] | None: Coordinates of the
+        disconnected cells, or None if operation not applicable.
+    """
     a_x: int
     b_x: int
     a_y: int
@@ -138,6 +171,11 @@ def deconnect_cells(
 
 
 def get_corridors(cell: Cell, grid: list[list[Cell]]) -> list[list[Cell]]:
+    """Identify corridor regions around a given cell.
+
+    Returns a list of corridors (each a list of `Cell`) in the local
+    neighbourhood.
+    """
     x, y = cell.get_coordinate()
     grid_width: int = len(grid[0])
     grid_height: int = len(grid)
@@ -227,6 +265,14 @@ def get_corridors(cell: Cell, grid: list[list[Cell]]) -> list[list[Cell]]:
 def get_corridors_tuple(
         corridors: list[list[Cell]]
 ) -> list[list[tuple[int, int]]]:
+    """Convert corridors (cells) to lists of coordinate tuples.
+
+    Args:
+        corridors (list[list[Cell]]): Corridors as lists of `Cell`.
+
+    Returns:
+        list[list[tuple[int,int]]]: Corridors expressed as coordinates.
+    """
     return [
         [cell.get_coordinate() for cell in corridor]
         for corridor in corridors
@@ -236,6 +282,15 @@ def get_corridors_tuple(
 def get_corridors_bounds(
         corridors_tuple: list[list[tuple[int, int]]]
 ) -> list[list[tuple[int, int]]]:
+    """Compute axis-aligned bounds for corridors expressed as coordinates.
+
+    Args:
+        corridors_tuple (list[list[tuple[int,int]]]): Corridors by coords.
+
+    Returns:
+        list[list[tuple[int,int]]]: For each corridor, a pair of ranges
+        ((x_min, x_max), (y_min, y_max)).
+    """
     return [
         [
             (
@@ -255,6 +310,20 @@ def get_corridor_walls(
         cell: Cell,
         grid: list[list[Cell]]
 ) -> list[int] | None:
+    """Estimate the number of closed walls for each corridor near a cell.
+
+    The heuristic counts wall tiles in each corridor region and returns
+    a list of totals used to prefer breaks in long corridors when
+    creating imperfect mazes.
+
+    Args:
+        cell (Cell): Reference cell.
+        grid (list[list[Cell]]): Maze grid.
+
+    Returns:
+        list[int] | None: A list with total wall counts per corridor,
+        or None if no corridors are found.
+    """
     corridors: list[list[Cell]] = get_corridors(cell, grid)
     if not len(corridors):
         return None

@@ -4,13 +4,15 @@ CONFIG = config.txt
 run:
 	@python3 $(MAIN) $(CONFIG)
 
-install:
-	@pip install flake8
-	@pip install mypy
-
 env:
 	@python3 -m venv .venv
 	@echo "Run: source .venv/bin/activate.fish"
+
+install:
+	@pip install flake8
+	@pip install mypy
+	@pip install mlx-2.2-py3-none-any.whl
+
 
 desactivate:
 	deactivate

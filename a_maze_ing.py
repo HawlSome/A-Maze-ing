@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 # ########################################################################### #
-#   shebang: 1                                                                #
+#                                                                             #
 #                                                          :::      ::::::::  #
 #   a_maze_ing.py                                        :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
+#   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/04/29 17:00:15 by varandri            #+#    #+#            #
-#   Updated: 2026/06/06 12:19:03 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/06/10 16:51:10 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
-from app.utils import read_file, MazeDisplayer
+from app import read_file, MazeDisplayer
 
 import sys
 

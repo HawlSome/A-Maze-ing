@@ -7,9 +7,9 @@ ENTRY=0,0
 		#
 
 
-seed = 43
+#seed = 43
 EXIT=3,3
-OUTPUT_FILE=maze.txt
-PERFECT=True
-algorithm = Prims
+OUTPUT_FILE=output_maze.txt
+PERFECT=False
+algorithm = Dfs
 Pattern_COLOR = 0x00000000
