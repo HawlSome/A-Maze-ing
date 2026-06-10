@@ -6,6 +6,5 @@
 .venv
 *.pyc
 *.mypy*
-mlx*
 *output*
 output_maze.py.txt
