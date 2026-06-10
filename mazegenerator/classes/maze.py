@@ -4,10 +4,10 @@
 #                                                          :::      ::::::::  #
 #   maze.py                                              :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
+#   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/03 14:46:18 by varandri            #+#    #+#            #
-#   Updated: 2026/06/01 20:13:40 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/10 13:03:26 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -18,8 +18,28 @@ from typing import Any
 
 
 class Maze:
+    """Represents a rectangular maze grid.
+
+    Manages a grid of cells, tracks entry and exit points, applies
+    pattern overlays (the 42 school logo), and provides access
+    to the maze cells for generation and solving algorithms.
+    """
     def __init__(self, config: dict[str, Any]) -> None:
+        """Initialize a maze from a configuration dictionary.
+
+        Args:
+            config (dict[str, Any]): Configuration with keys:
+                - width (int): Maze grid width.
+                - height (int): Maze grid height.
+                - entry (tuple[int, int]): Starting cell coordinates.
+                - exit (tuple[int, int]): Goal cell coordinates.
+                - output_file (str, optional): Output filename (default: "maze.txt").
+
+        Raises:
+            Exception: If entry and exit are the same or overlap protected cells.
+        """
         w, h = (config["width"], config["height"])
+        self._output_file: str = config.get("output_file", "maze.txt")
         self._pattern_cells: list[tuple[int, int]] = []
         self.set_cells(w, h)
         self.set_pattern(w, h)
@@ -28,6 +48,11 @@ class Maze:
         self.__validate__()
 
     def __validate__(self) -> None:
+        """Validate that entry and exit are valid and non-overlapping.
+
+        Raises:
+            Exception: If entry equals exit or either overlaps a protected cell.
+        """
         if (self._entry == self._exit):
             raise Exception("Entry and Exit can't be on the same place")
         en_x, en_y = self._entry
@@ -44,9 +69,24 @@ class Maze:
                 )
 
     def set_cells(self, w: int, h: int) -> None:
+        """Initialize the maze grid with empty cells.
+
+        Args:
+            w (int): Grid width.
+            h (int): Grid height.
+        """
         self._cells: list[list[Cell]] = generate_cells(w, h)
 
     def set_pattern(self, w: int, h: int) -> None:
+        """Apply a pattern (the 42 school logo) to the maze center.
+
+        Marks pattern cells as protected so they cannot be carved by
+        generation algorithms.
+
+        Args:
+            w (int): Grid width.
+            h (int): Grid height.
+        """
         pattern: list[list[str]] = forty_two
         w_pattern: int
         h_pattern: int
@@ -69,19 +109,57 @@ class Maze:
                     self._pattern_cells.append((x_start + x, y_start + y))
 
     def set_entry(self, entry_coordinate: tuple[int, int]) -> None:
+        """Set the entry point (starting cell) for the maze.
+
+        Args:
+            entry_coordinate (tuple[int, int]): (x, y) coordinates of entry.
+        """
         self._entry: tuple[int, int] = entry_coordinate
 
     def set_exit(self, exit_coordinate: tuple[int, int]) -> None:
+        """Set the exit point (goal cell) for the maze.
+
+        Args:
+            exit_coordinate (tuple[int, int]): (x, y) coordinates of exit.
+        """
         self._exit: tuple[int, int] = exit_coordinate
 
     def get_cells(self) -> list[list[Cell]]:
+        """Return the maze grid.
+
+        Returns:
+            list[list[Cell]]: 2D array of cells indexed as [y][x].
+        """
         return self._cells
 
     def get_entry(self) -> tuple[int, int]:
+        """Return the entry point coordinates.
+
+        Returns:
+            tuple[int, int]: (x, y) coordinates of the entry cell.
+        """
         return self._entry
 
     def get_exit(self) -> tuple[int, int]:
+        """Return the exit point coordinates.
+
+        Returns:
+            tuple[int, int]: (x, y) coordinates of the exit cell.
+        """
         return self._exit
 
     def get_pattern_cells(self) -> list[tuple[int, int]]:
+        """Return all protected pattern cell coordinates.
+
+        Returns:
+            list[tuple[int, int]]: List of (x, y) coordinates that are protected.
+        """
         return self._pattern_cells
+
+    def get_output_file(self) -> str:
+        """Return the configured output filename for the maze.
+
+        Returns:
+            str: Output filename.
+        """
+        return self._output_file

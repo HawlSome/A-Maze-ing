@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # ########################################################################### #
-#                                                                             #
+#   shebang: 1                                                                #
 #                                                          :::      ::::::::  #
 #   dfs.py                                               :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
+#   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/02 19:14:38 by nrasolom            #+#    #+#            #
-#   Updated: 2026/06/06 07:36:33 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/10 14:07:03 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -21,7 +21,23 @@ import random
 def dfs_perfect(
         maze: Maze, rand: random.Random
 ) -> list[(tuple[tuple[int, int], tuple[int, int]] | None)]:
+    """Carve a perfect maze using depth-first search (recursive backtracker).
 
+    The function performs an iterative DFS starting from a random,
+    unprotected cell. It connects cells by removing walls until all
+    reachable cells have been visited, producing a perfect maze.
+
+    Args:
+        maze (Maze): Maze instance to modify in-place
+        rand (random.Random): Random generator used for selection and
+            for determinism when seeded.
+
+    Returns:
+        list[tuple[tuple[int,int], tuple[int,int]] | None]: A list of
+        connection moves produced by `connect_cells`. Each element is
+        typically a tuple of two cell coordinate tuples representing
+        the connected cells, or None when no connection was made.
+    """
     moves: list[(tuple[tuple[int, int], tuple[int, int]] | None)] = []
 
     grid = maze.get_cells()
@@ -43,7 +59,7 @@ def dfs_perfect(
 
         if neighbors:
             neighbor_cell = rand.choice(neighbors)[1]
-            connected = connect_cells(actual_cell, neighbor_cell, True)
+            connected = connect_cells(actual_cell, neighbor_cell)
             if connected:
                 moves.append(connected)
             stack.append(neighbor_cell)
@@ -55,6 +71,27 @@ def dfs_perfect(
 def dfs_imperfect(
         maze: Maze, rand: random.Random, imperfection: float | None = None
 ) -> list[(tuple[tuple[int, int], tuple[int, int]] | None)]:
+    """Generate an imperfect maze by first carving a perfect maze,
+    then removing extra walls to create loops.
+
+    The function calls `dfs_perfect` to produce an initial perfect
+    maze, then remove additional walls according to the ``imperfection``
+    fraction. Removal attempts avoid protected cells and use local
+    corridor heuristics to breake long corridor walls.
+
+    Args:
+        maze (Maze): Maze instance to modify in-place.
+        rand (random.Random): Random generator used for selection and
+            for determinism when seeded.
+        imperfection (float | None): Fraction (0.0-1.0) of total walls
+            to attempt to remove. If None, a random value from
+            `rand.random()` is used.
+
+    Returns:
+        list[tuple[tuple[int,int], tuple[int,int]] | None]: The list of
+        moves returned by the initial `dfs_perfect` carving and additional
+        wall removals applied as side effects on `maze`.
+    """
     moves: list[
         (tuple[tuple[int, int], tuple[int, int]] | None)
     ] = dfs_perfect(maze, rand)
@@ -151,6 +188,23 @@ def dfs_imperfect(
 def dfs_carver(
         maze: Maze, seed: int | None, perfect: bool | None = True
 ) -> list[(tuple[tuple[int, int], tuple[int, int]] | None)]:
+    """Entry point to carve a maze using DFS-based algorithms.
+
+    It's a wrapper that creates a `random.Random` instance using
+    the provided ``seed`` (if any) and dispatches to either
+    `dfs_perfect` or `dfs_imperfect` depending on ``perfect``.
+
+    Args:
+        maze (Maze): Maze instance to modify in-place
+        seed (int | None): Optional integer seed for reproducible
+            randomness. If None, an unseeded generator is used.
+        perfect (bool | None): If True (default) create a perfect
+            maze; otherwise create an imperfect maze with loops.
+
+    Returns:
+        list[tuple[tuple[int,int], tuple[int,int]] | None]: The list of
+        connection moves produced by the chosen algorithm.
+    """
     rand: random.Random = random.Random()
     if seed:
         rand = random.Random(seed)

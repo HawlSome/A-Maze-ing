@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # ########################################################################### #
-#                                                                             #
+#   shebang: 1                                                                #
 #                                                          :::      ::::::::  #
 #   prims.py                                             :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
+#   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/05 11:26:09 by varandri            #+#    #+#            #
-#   Updated: 2026/06/06 07:38:31 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/10 11:27:29 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -21,6 +21,23 @@ import random
 def prims_perfect(
         maze: Maze, rand: random.Random
 ) -> list[(tuple[tuple[int, int], tuple[int, int]] | None)]:
+    """Carve a perfect maze using Prim's algorithm (randomized variant).
+
+    The function grows a spanning tree by repeatedly selecting a
+    random edge that connects a visited cell to an unvisited cell and
+    removing the wall between them, to produce a perfect maze.
+
+    Args:
+        maze (Maze): Maze instance to modify in-place.
+        rand (random.Random): Random generator used for selection and
+            for determinism when seeded.
+
+    Returns:
+        list[tuple[tuple[int,int], tuple[int,int]] | None]: A list of
+        connection moves produced by `connect_cells`. Each element is
+        typically a tuple of two cell coordinate tuples representing
+        the connected cells, or None when no connection was made.
+    """
     cells: list[list[Cell]] = maze.get_cells()
     edges: list[tuple[Cell, Cell]] = []
     moves: list[(tuple[tuple[int, int], tuple[int, int]] | None)] = []
@@ -50,6 +67,27 @@ def prims_perfect(
 def prims_imperfect(
         maze: Maze, rand: random.Random, imperfection: float | None = None
 ) -> list[(tuple[tuple[int, int], tuple[int, int]] | None)]:
+    """Create an imperfect maze by first carving a perfect maze with
+    Prim's algorithm, then removing additional walls to introduce loops.
+
+    The function calls `prims_perfect` to produce an initial perfect
+    maze, then remove additional walls according to the ``imperfection``
+    fraction. Removal attempts avoid protected cells and use local
+    corridor heuristics to breake long corridor walls.
+
+    Args:
+        maze (Maze): Maze instance to modify in-place.
+        rand (random.Random): Random generator used for selection and
+            for determinism when seeded.
+        imperfection (float | None): Fraction (0.0-1.0) of total walls
+            to attempt to remove. If None, a random value from
+            `rand.random()` is used.
+
+    Returns:
+        list[tuple[tuple[int,int], tuple[int,int]] | None]: The list of
+        moves returned by the initial `prims_perfect` carving. Additional
+        wall removals are applied as side effects on `maze`.
+    """
     moves: list[
         (tuple[tuple[int, int], tuple[int, int]] | None)
     ] = prims_perfect(maze, rand)
@@ -146,6 +184,23 @@ def prims_imperfect(
 def prims_carver(
         maze: Maze, seed: int | None, perfect: bool | None = True
 ) -> list[(tuple[tuple[int, int], tuple[int, int]] | None)]:
+    """Entry point to carve a maze using prims-based algorithms.
+
+    It's a wrapper that creates a `random.Random` instance using
+    the provided ``seed`` (if any) and dispatches to either
+    `prims_perfect` or `prims_imperfect` depending on ``perfect``.
+
+    Args:
+        maze (Maze): Maze instance to modify in-place.
+        seed (int | None): Optional integer seed for reproducible
+            randomness. If None, an unseeded generator is used.
+        perfect (bool | None): If True (default) create a perfect
+            maze; otherwise create an imperfect maze with loops.
+
+    Returns:
+        list[tuple[tuple[int,int], tuple[int,int]] | None]: The list of
+        connection moves produced by the chosen algorithm.
+    """
     rand: random.Random = random.Random()
     if seed:
         rand = random.Random(seed)

@@ -1,12 +1,13 @@
+#!/usr/bin/env python3
 # ########################################################################### #
-#                                                                             #
+#   shebang: 1                                                                #
 #                                                          :::      ::::::::  #
 #   directions.py                                        :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
+#   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/02 10:47:39 by varandri            #+#    #+#            #
-#   Updated: 2026/05/03 11:35:12 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/10 13:00:56 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -14,12 +15,22 @@ from enum import Enum
 
 
 class Directions(Enum):
+    """Cardinal directions for maze navigation.
+
+    Provides constants for the four cardinal directions: West, South,
+    East, and North, with a method to find opposite directions.
+    """
     W = "west"
     S = "south"
     E = "east"
     N = "north"
 
     def opposite(self) -> "Directions":
+        """Return the opposite direction.
+
+        Returns:
+            Directions: The opposite cardinal direction.
+        """
         opposites = {
             Directions.N: Directions.S,
             Directions.S: Directions.N,
