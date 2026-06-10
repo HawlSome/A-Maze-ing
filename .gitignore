@@ -7,5 +7,5 @@
 *.pyc
 *.mypy*
 mlx*
-maze.txt
+*output*
 output_maze.py.txt

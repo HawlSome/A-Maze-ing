@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # ########################################################################### #
-#   shebang: 1                                                                #
+#                                                                             #
 #                                                          :::      ::::::::  #
 #   displayer.py                                         :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
+#   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/24 10:58:25 by varandri            #+#    #+#            #
-#   Updated: 2026/06/10 16:12:45 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/06/10 17:12:19 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -135,7 +135,6 @@ class MazeDisplayer:
             None
         ] = maze.get_generation_step()
         pattern_cells: list[tuple[int, int]] = maze.get_pattern_cells()
-        solution: list[tuple[int, int]] = maze.get_solution()
 
         def refresh_window() -> None:
             """Repaint the MLX window with current background and foreground.
@@ -147,13 +146,6 @@ class MazeDisplayer:
             mlx.clear_window(self._window)
             mlx.put_image_to_window(self._window, bg, 0, 0)
             mlx.put_image_to_window(self._window, fg, 0, 0)
-            mlx.put_str(
-                self._window,
-                10,
-                self._win_height - 32,
-                0xFF000000,
-                "c: change color  p: show/hide path  q: quit  r: regenerate"
-            )
 
         def regenerate(
             maze_steps: list[
@@ -167,6 +159,8 @@ class MazeDisplayer:
             and restarts generation if new steps are available.
             """
             statics.run = False
+            statics.show_path = True
+            statics.run_path = False
             maze_steps.clear()
             fg_renderer.fill_img(transparent)
             self._maze = MazeGenerator(self._config)
@@ -215,16 +209,17 @@ class MazeDisplayer:
                     n = 0
                 fg_renderer.fill_cell(*cells[i], (w, s, e, n), color)
 
-        def carve_path() -> None:
+        def carve_path(maze: MazeGenerator) -> None:
             """Draw the maze solution path onto the foreground.
 
             When `run_path` is enabled the function paints the solution
             coordinates (skipping entry/exit) either with a random color
             for animation or a solid color when `show_path` is false.
             """
+            path: list[tuple[int, int]] = maze.get_solution()
             if statics.show_path and statics.run_path:
                 color: int = random_color()
-                for (x, y) in solution:
+                for (x, y) in path:
                     if (
                         (x, y) == maze.get_maze_entry() or
                         (x, y) == maze.get_maze_exit()
@@ -237,7 +232,7 @@ class MazeDisplayer:
                     statics.run_path = False
             if not statics.show_path and statics.run_path:
                 color = black
-                for (x, y) in solution:
+                for (x, y) in path:
                     if (
                         (x, y) == maze.get_maze_entry() or
                         (x, y) == maze.get_maze_exit()
@@ -290,14 +285,14 @@ class MazeDisplayer:
                         *maze_exit, maze.get_cell_walls(*maze_exit), color
                     )
                     carve_pattern()
-                    carve_path()
+                    carve_path(self._maze)
                     refresh_window()
                     statics.run = False
 
             if statics.regenerate:
                 regenerate(maze_steps)
 
-            carve_path()
+            carve_path(self._maze)
 
         mlx.loop_hook(carve_maze, [fg_renderer, maze_steps])
 

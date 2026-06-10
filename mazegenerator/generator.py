@@ -1,20 +1,19 @@
 #!/usr/bin/env python3
 # ########################################################################### #
-#   shebang: 1                                                                #
+#                                                                             #
 #                                                          :::      ::::::::  #
 #   generator.py                                         :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
+#   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/03 14:38:57 by varandri            #+#    #+#            #
-#   Updated: 2026/06/10 14:43:36 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/06/10 17:02:41 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
 from .classes.maze import Maze
 from .classes.cell import Cell
 from .algorithms import prims_carver, dfs_carver, a_star
-from .output_file import save_output
 from typing import Any
 
 
@@ -55,6 +54,7 @@ class MazeGenerator:
         self._solution: list[tuple[int, int]] = []
         self.maze_generate()
         self.maze_solve()
+        self.save_output()
 
     def get_cell_walls(self, x: int, y: int) -> tuple[int, int, int, int]:
         """Get the walls of one cell in the coordinate (x, y) in the maze,
@@ -97,7 +97,7 @@ class MazeGenerator:
         the default DFS) and stores the sequence of generation moves in
         `self._gen_steps`.
         """
-        if self._algorithm == "prims":
+        if self._algorithm and self._algorithm.lower() == "prims":
             self._gen_steps = prims_carver(
                 self._map, self._seed, self._perfection
             )
@@ -118,10 +118,44 @@ class MazeGenerator:
             Any IO errors during saving the solution to avoid break.
         """
         self._solution = a_star(self._map)
-        try:
-            save_output(self._map, self._solution)
-        except Exception:
-            pass
+
+    def save_output(self) -> None:
+        """Save the maze state and solutions into a file.
+
+        This function writes a textual representation of the maze grid
+        in hexadecimal for each cell, followed by entry/exit coordinates
+        and a compact direction-based encoding of the solution path.
+        """
+        maze: Maze = self._map
+        grid: list[list[Cell]] = maze.get_cells()
+        path: list[tuple[int, int]] = self.get_solution()
+        with open(maze.get_output_file(), 'w') as file:
+            for y in range(len(grid)):
+                for x in range(len(grid[0])):
+                    file.write(grid[y][x].get_hex().upper())
+                file.write("\n")
+
+            start = maze.get_entry()
+            file.write("\n")
+            file.write(str(start[0]) + ', ' + str(start[1]))
+            end = maze.get_exit()
+            file.write("\n")
+            file.write(str(end[0]) + ', ' + str(end[1]))
+
+            file.write("\n")
+            i: int = 0
+            for i in range(len(path) - 1):
+                c_x, c_y = path[i]
+                n_x, n_y = path[i + 1]
+
+                if c_x < n_x:
+                    file.write("E")
+                elif c_x > n_x:
+                    file.write("W")
+                elif c_y < n_y:
+                    file.write("S")
+                elif c_y > n_y:
+                    file.write("N")
 
     def get_generation_step(
             self
