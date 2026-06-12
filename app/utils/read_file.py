@@ -7,7 +7,7 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/01 15:56:12 by varandri            #+#    #+#            #
-#   Updated: 2026/06/13 00:02:31 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/13 00:19:21 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -150,6 +150,11 @@ def validate_config(config: dict[str, Any]) -> None:
             if w and h and x and y:
                 w -= 1
                 h -= 1
+            if w < 0 or h < 0:
+                raise Exception(
+                    "Incorrect value(s) - WIDTH and/or HEIGHT "
+                    "cant have negative values ."
+                )
             if x < 0 or x > w or y < 0 or y > h:
                 raise Exception(
                     f"{key.upper()}({x}, {y}) out of"
