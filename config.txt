@@ -10,6 +10,6 @@ ENTRY=0,0
 #seed = 43
 EXIT=3,3
 OUTPUT_FILE=output_maze.txt
-#ERFECT=False
+pERFECT=true
 #algorithm = kaka
 Pattern_COLOR = 0x00000000

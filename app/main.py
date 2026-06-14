@@ -1,18 +1,19 @@
 #!/usr/bin/env python3
 # ########################################################################### #
-#   shebang: 1                                                                #
+#                                                                             #
 #                                                          :::      ::::::::  #
 #   main.py                                              :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/06/12 23:37:17 by varandri            #+#    #+#            #
-#   Updated: 2026/06/13 00:04:32 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/14 16:51:34 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
 from typing import Any
 from . import read_file, scalings, MazeDisplayer
+from os import system
 
 
 def a_maze_ing(file: str) -> None:
@@ -34,3 +35,4 @@ def a_maze_ing(file: str) -> None:
     MazeDisplayer(
         config, *window_scales
     )
+    system("clear")
