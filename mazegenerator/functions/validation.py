@@ -7,7 +7,7 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/06/19 23:23:27 by varandri            #+#    #+#            #
-#   Updated: 2026/06/19 23:36:26 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/19 23:50:03 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -15,28 +15,57 @@ from typing import Any
 
 
 def process_config(config: dict[str, Any]) -> None:
-    for key in config.keys():
-        config[key.lower()] = config[key]
+    """Normalize all configuration dictionary keys to lowercase.
+
+    Converts any dictionary keys that contain uppercase letters to their
+    lowercase equivalents, removing the original uppercase keys. This is
+    useful for handling configuration inputs from various sources with
+    inconsistent capitalization (e.g., user input, environment variables).
+
+    The function modifies the dictionary in-place. Values remain unchanged;
+    only keys are normalized.
+
+    Args:
+        config (dict[str, Any]): Configuration dictionary to normalize.
+            Modified in-place; original uppercase keys are removed.
+    """
+    for key in list(config.keys()):
+        if key != key.lower():
+            config[key.lower()] = config.pop(key)
 
 
 def validate_config(config: dict[str, Any]) -> None:
-    """
-    Validate that a configuration dictionary has required keys and
-    correct types.
+    """Validate maze configuration dictionary for required keys, types,
+    and bounds.
 
-    Mandatory keys: width, height, entry, exit, output_file, perfect
+    Ensures the configuration contains all mandatory keys with correct types
+    and valid values. Spatial coordinates (entry, exit) must fall within the
+    maze bounds defined by width and height.
 
-    Type requirements:
-    - width, height: int
-    - entry, exit: tuple of 2 ints, must be within maze bounds
-    - perfect: bool
+    Mandatory keys and validation rules:
+        - width (int): Positive integer, used for bounds checking
+        - height (int): Positive integer, used for bounds checking
+        - entry (tuple[int, int]): 2-element tuple of ints, within bounds
+        - exit (tuple[int, int]): 2-element tuple of ints, within bounds
+        - output_file (str): Output file path (type checked only)
+        - perfect (bool): Maze generation mode flag
+
+    Spatial bounds validation:
+        - Coordinates are 0-indexed and
+        must satisfy: 0 <= x < width, 0 <= y < height
+        - entry and exit must be different locations
 
     Args:
-        config: The configuration dictionary to validate.
+        config (dict[str, Any]): Configuration dictionary to validate.
 
     Raises:
-        Exception: If any mandatory key is missing, has incorrect type,
-                   or is out of bounds for spatial coordinates.
+        Exception: If any of the following occur:
+            - Any mandatory key is missing
+            - Type mismatch for width, height, entry, exit, or perfect
+            - entry or exit is not a 2-tuple of integers
+            - width or height is negative
+            - entry or exit coordinates exceed maze bounds
+            - entry and exit are at the same location
     """
     mandatory: list[str] = [
         "width", "height", "entry",

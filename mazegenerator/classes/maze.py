@@ -7,12 +7,12 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/03 14:46:18 by varandri            #+#    #+#            #
-#   Updated: 2026/06/19 23:39:34 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/19 23:55:31 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
 from .cell import Cell
-from ..functions import generate_cells, process_config, validate_config
+from ..functions import generate_cells
 from ..patterns import forty_two
 from typing import Any
 
@@ -37,10 +37,8 @@ class Maze:
                 (default: "maze.txt").
 
         Raises:
-            Exception: If the validation fails.
+            Exception: If its own validation fails.
         """
-        process_config(config)
-        validate_config(config)
         w, h = (config["width"], config["height"])
         self._output_file: str = config.get("output_file", "maze.txt")
         self._pattern_cells: list[tuple[int, int]] = []

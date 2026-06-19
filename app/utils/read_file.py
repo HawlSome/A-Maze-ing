@@ -7,7 +7,7 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/01 15:56:12 by varandri            #+#    #+#            #
-#   Updated: 2026/06/13 00:19:21 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/20 00:01:49 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -158,7 +158,7 @@ def validate_config(config: dict[str, Any]) -> None:
             if x < 0 or x > w or y < 0 or y > h:
                 raise Exception(
                     f"{key.upper()}({x}, {y}) out of"
-                    f" the maze bound ({w}, {h})"
+                    f" the maze bound {w}x{h}"
                 )
         elif (key == "perfect" and not isinstance(value, bool)):
             raise Exception(

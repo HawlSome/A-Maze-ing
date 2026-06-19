@@ -1,18 +1,19 @@
 #!/usr/bin/env python3
 # ########################################################################### #
-#                                                                             #
+#   shebang: 1                                                                #
 #                                                          :::      ::::::::  #
 #   generator.py                                         :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/03 14:38:57 by varandri            #+#    #+#            #
-#   Updated: 2026/06/10 17:02:41 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/20 00:05:08 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
 from .classes.maze import Maze
 from .classes.cell import Cell
+from .functions import process_config, validate_config
 from .algorithms import prims_carver, dfs_carver, a_star
 from typing import Any
 
@@ -43,7 +44,11 @@ class MazeGenerator:
         Side Effects:
             Creates the maze, generates the carving steps, solves the
             maze, and writes the output file if possible.
+        Raises:
+            Exception: If its own validation fails.
         """
+        process_config(config)
+        validate_config(config)
         self._map: Maze = Maze(config)
         self._algorithm: str | None = config.get("algorithm", "dfs")
         self._seed: int | None = config.get("seed")
