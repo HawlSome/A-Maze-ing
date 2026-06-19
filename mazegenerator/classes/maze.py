@@ -4,15 +4,15 @@
 #                                                          :::      ::::::::  #
 #   maze.py                                              :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
+#   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/03 14:46:18 by varandri            #+#    #+#            #
-#   Updated: 2026/06/10 14:33:06 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/06/19 23:39:34 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
 from .cell import Cell
-from ..functions import generate_cells
+from ..functions import generate_cells, process_config, validate_config
 from ..patterns import forty_two
 from typing import Any
 
@@ -37,9 +37,10 @@ class Maze:
                 (default: "maze.txt").
 
         Raises:
-            Exception: If entry and exit are the same or
-            overlap protected cells.
+            Exception: If the validation fails.
         """
+        process_config(config)
+        validate_config(config)
         w, h = (config["width"], config["height"])
         self._output_file: str = config.get("output_file", "maze.txt")
         self._pattern_cells: list[tuple[int, int]] = []
@@ -50,14 +51,12 @@ class Maze:
         self.__validate__()
 
     def __validate__(self) -> None:
-        """Validate that entry and exit are valid and non-overlapping.
+        """Validate that entry and exit are valid and non-overlapping
+        the cells in the 42 pattern.
 
         Raises:
-            Exception: If entry equals exit or either
-            overlaps a protected cell.
+            Exception: If entry or exit overlaps a protected cell.
         """
-        if (self._entry == self._exit):
-            raise Exception("Entry and Exit can't be on the same place")
         en_x, en_y = self._entry
         ex_x, ex_y = self._exit
         ent_ext = (

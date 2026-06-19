@@ -8,7 +8,7 @@ ENTRY=0,0
 
 
 #seed = 43
-EXIT=2,2
+EXIT=0,0
 OUTPUT_FILE=output_maze.txt
 pERFECT=false
 #algorithm = kaka
