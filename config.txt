@@ -8,7 +8,7 @@ ENTRY=0,0
 
 
 #seed = 43
-EXIT=1,1
+EXIT=1,2
 OUTPUT_FILE=output_maze.txt
 pERFECT=false
 algorithm = prims

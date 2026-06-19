@@ -7,7 +7,7 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/06/19 22:20:47 by varandri            #+#    #+#            #
-#   Updated: 2026/06/20 00:24:47 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/20 00:36:47 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -110,7 +110,7 @@ def imperfect_algorithm(
     walls_to_remove: int = int(total_walls * imperfection)
     max_attempts: int = walls_to_remove * 5
 
-    if len(grid[0]) <= 3 or len(grid) <= 3:
+    if len(grid[0]) <= 3 and len(grid) <= 3:
         while walls_to_remove and max_attempts:
             x = rand.randint(0, len(grid[0]) - 1)
             y = rand.randint(0, len(grid) - 1)
