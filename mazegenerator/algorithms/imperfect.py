@@ -7,7 +7,7 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/06/19 22:20:47 by varandri            #+#    #+#            #
-#   Updated: 2026/06/19 22:52:49 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/20 00:24:47 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -104,16 +104,43 @@ def imperfect_algorithm(
         (tuple[tuple[int, int], tuple[int, int]] | None)
     ] = algorithm(maze, rand)
     grid: list[list[Cell]] = maze.get_cells()
-    all_corridor: dict[tuple[int, int], (list[int] | None)] = {
-        (x, y): get_corridor_walls(grid[y][x], grid)
-        for y in range(len(grid))
-        for x in range(len(grid[0]))
-    }
     total_walls: int = (len(grid) * len(grid[0]) * 4)
     if imperfection is None:
         imperfection = rand.random()
     walls_to_remove: int = int(total_walls * imperfection)
     max_attempts: int = walls_to_remove * 5
+
+    if len(grid[0]) <= 3 or len(grid) <= 3:
+        while walls_to_remove and max_attempts:
+            x = rand.randint(0, len(grid[0]) - 1)
+            y = rand.randint(0, len(grid) - 1)
+            cell = grid[y][x]
+            if cell.get_protect():
+                continue
+            max_attempts -= 1
+            if (
+                x + 1 in range(len(grid[0])) and
+                cell.has_wall(Directions.E)
+            ):
+                cell.set_visit()
+                grid[y][x + 1].set_visit()
+                if (connect_cells(cell, grid[y][x + 1])) is not None:
+                    walls_to_remove -= 1
+            if (
+                y + 1 in range(len(grid)) and
+                cell.has_wall(Directions.S)
+            ):
+                cell.set_visit()
+                grid[y + 1][x].set_visit()
+                if (connect_cells(cell, grid[y + 1][x])) is not None:
+                    walls_to_remove -= 1
+        return moves
+
+    all_corridor: dict[tuple[int, int], (list[int] | None)] = {
+        (x, y): get_corridor_walls(grid[y][x], grid)
+        for y in range(len(grid))
+        for x in range(len(grid[0]))
+    }
 
     if len(grid[0]) == 3 and len(grid) == 3:
         walls_removed_3x3: int = 0
@@ -122,7 +149,7 @@ def imperfect_algorithm(
             for x in range(len(grid[0])):
                 if walls_removed_3x3 >= max_walls_3x3:
                     return moves
-                cell: Cell = grid[y][x]
+                cell = grid[y][x]
                 if (
                     cell.has_wall(Directions.E) and
                     (x + 1) in range(len(grid[0]))

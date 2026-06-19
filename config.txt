@@ -1,5 +1,5 @@
-WIDTH= 10
-HEIGHT= 10
+WIDTH= 5
+HEIGHT= 3
 ENTRY=0,0
 
 
@@ -8,8 +8,8 @@ ENTRY=0,0
 
 
 #seed = 43
-EXIT=0,0
+EXIT=1,1
 OUTPUT_FILE=output_maze.txt
 pERFECT=false
-#algorithm = kaka
-Pattern_COLOR = 0x000000FF
+algorithm = prims
+Pattern_COLOR = 0x00000000
