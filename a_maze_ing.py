@@ -1,16 +1,21 @@
 #!/usr/bin/env python3
 # ########################################################################### #
-#   shebang: 1                                                                #
+#                                                                             #
 #                                                          :::      ::::::::  #
 #   a_maze_ing.py                                        :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/04/29 17:00:15 by varandri            #+#    #+#            #
-#   Updated: 2026/06/12 23:52:34 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/19 11:30:35 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
+try:
+    import mlx
+except ModuleNotFoundError as e:
+    print(f"Error: {e}")
+    exit(1)
 from app import a_maze_ing
 import sys
 

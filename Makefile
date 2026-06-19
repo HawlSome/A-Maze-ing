@@ -9,9 +9,7 @@ env:
 	@echo "Run: source .venv/bin/activate.fish"
 
 install:
-	@pip install flake8
-	@pip install mypy
-	@pip install mlx-2.2-py3-none-any.whl
+	@pip install -r requirements.txt
 
 
 desactivate:
