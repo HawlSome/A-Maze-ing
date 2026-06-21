@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # ########################################################################### #
-#                                                                             #
+#   shebang: 1                                                                #
 #                                                          :::      ::::::::  #
 #   imperfect.py                                         :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/06/19 22:20:47 by varandri            #+#    #+#            #
-#   Updated: 2026/06/21 12:20:26 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/21 22:30:36 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -28,8 +28,14 @@ def _can_remove_wall(
     h, w = len(grid), len(grid[0])
     x2, y2 = (x + 1, y) if direction == Directions.E else (x, y + 1)
 
-    for start_y in range(max(0, h - 2)):
-        for start_x in range(max(0, w - 2)):
+    min_y = max(0, min(y, y2) - 2)
+    max_y = min(h - 3, max(y, y2))
+
+    min_x = max(0, min(x, x2) - 2)
+    max_x = min(w - 3, max(x, x2))
+
+    for start_y in range(min_y, max_y + 1):
+        for start_x in range(min_x, max_x + 1):
             region_has_wall = False
             for dy in range(3):
                 for dx in range(3):

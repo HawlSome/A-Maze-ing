@@ -89,7 +89,6 @@ make run clean
 - [Python standard library](https://docs.python.org): file handling, `heapq`, `random`, and typing helpers
 - [MiniLibX](https://harm-smits.github.io/42docs/libs/minilibx) : window management and pixel rendering
 - [Maze generation concepts](https://professor-l.github.io/mazes/): Maze generation ideas
-- [Maze generation concepts](https://professor-l.github.io/mazes/): Maze generation ideas
 - [Claude (AI)](https://claude.ai/) : write the README and docstrings, toml usage, build explanation
 
 # Complete structure and format of the config file
@@ -111,8 +110,8 @@ Comments start with `#` are ignored. Empty lines are skipped. Keys are case-inse
 
 - `SEED`: integer seed for deterministic generation
 - `ALGORITHM`: `dfs` or `prims`
-- `PATTERN_COLOR`: hexadecimal RGBA value such as `0x00000000`
-- `IMPERFECTION_RATE` : percentage float number between 0 and 1 of imperfection
+- `PATTERN_COLOR`: hexadecimal BGRA value such as `0x00000000`
+- `IMPERFECTION_RATE` : percentage float number between 0 and 1 of imperfection (0 excluded and 1 included)
 
 ## Example
 

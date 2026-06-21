@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # ########################################################################### #
-#                                                                             #
+#   shebang: 1                                                                #
 #                                                          :::      ::::::::  #
 #   validation.py                                        :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/06/19 23:23:27 by varandri            #+#    #+#            #
-#   Updated: 2026/06/21 12:59:47 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/21 21:51:47 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -114,15 +114,19 @@ def validate_config(config: dict[str, Any]) -> None:
                 f"Incorrect format for the {key.upper()} value"
             )
         if key == "imperfection_rate":
-            try:
-                val: float = float(value)
-                if 0.0 >= val or val > 1.0:
-                    raise Exception(
-                        f"The value of {key.upper()} is out of bound(0 -> 1).")
-            except ValueError:
-                raise ValueError(
-                    f"Incorrect format for the {key.upper()} value"
-                )
+            perfection = config.get("perfect")
+            if perfection is not None and perfection is False:
+                try:
+                    val: float = float(value)
+                    if 0.0 >= val or val > 1.0:
+                        raise Exception(
+                            f"The value of {key.upper()} is"
+                            " out of bound(0 < value <= 1)."
+                        )
+                except ValueError:
+                    raise ValueError(
+                        f"Incorrect format for the {key.upper()} value"
+                    )
     entry: tuple[int, int] | None = config.get("entry")
     exit: tuple[int, int] | None = config.get("exit")
     if entry and exit and entry == exit:
