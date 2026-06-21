@@ -1,9 +1,5 @@
-# *main*
 *test*
-# .*
-*.out
-*.gch
-.venv
+*venv*
 *.pyc
 *.mypy*
 *output*

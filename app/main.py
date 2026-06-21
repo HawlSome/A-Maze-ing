@@ -7,13 +7,12 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/06/12 23:37:17 by varandri            #+#    #+#            #
-#   Updated: 2026/06/14 16:51:34 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/19 14:24:30 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
 from typing import Any
 from . import read_file, scalings, MazeDisplayer
-from os import system
 
 
 def a_maze_ing(file: str) -> None:
@@ -30,9 +29,11 @@ def a_maze_ing(file: str) -> None:
         None. Initializes MazeDisplayer which handles display and
         user interaction.
     """
-    config: dict[str, Any] = read_file(file)
-    window_scales: tuple[int, int, int, int] = scalings(config)
-    MazeDisplayer(
-        config, *window_scales
-    )
-    system("clear")
+    try:
+        config: dict[str, Any] = read_file(file)
+        window_scales: tuple[int, int, int, int] = scalings(config)
+        MazeDisplayer(
+            config, *window_scales
+        )
+    except (KeyboardInterrupt, EOFError):
+        raise Exception("Program exited unexpectedly")

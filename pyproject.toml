@@ -1,3 +1,23 @@
 [[tool.mypy.overrides]]
-   module = "mlx.*"
-   ignore_missing_imports = true
+module = "mlx.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "mazegenerator.*"
+ignore_missing_imports = true
+
+[build-system]
+requires = ["setuptools>=65.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mazegen"
+version = "0.1.0"
+readme = "mazegen/README.md"
+
+[tool.setuptools]
+package-dir = {"" = "mazegen"}
+
+
+[tool.setuptools.packages.find]
+where = ["mazegen"]

@@ -1,15 +1,9 @@
-WIDTH= 20
-HEIGHT= 20
+WIDTH=20
+HEIGHT=20
 ENTRY=0,0
-
-
-        #
-		#
-
-
-#seed = 43
 EXIT=3,3
 OUTPUT_FILE=output_maze.txt
-pERFECT=true
-#algorithm = kaka
-Pattern_COLOR = 0x00000000
+PERFECT=true
+SEED=43
+ALGORITHM=dfs
+PATTERN_COLOR=0x00000000

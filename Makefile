@@ -4,24 +4,26 @@ CONFIG = config.txt
 run:
 	@python3 $(MAIN) $(CONFIG)
 
-env:
-	@python3 -m venv .venv
-	@echo "Run: source .venv/bin/activate.fish"
-
 install:
-	@pip install flake8
-	@pip install mypy
-	@pip install mlx-2.2-py3-none-any.whl
+	@pip install -r requirements.txt
 
-
-desactivate:
-	deactivate
+debug:
+	@python3 -m pdb $(MAIN) $(CONFIG)
 
 clean:
 	@find . -type d -name "*cache*" | xargs rm -rf
 
 lint: 
-	@flake8 . --exclude=.venv,__pycache__,.mypy_cache
+	@flake8 . --exclude=.venv,__pycache__,.mypy_cache,.env,env
 	@mypy . --warn-return-any --warn-unused-ignore \
-	 --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs
+	 --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs\
 	@$(MAKE) -s clean
+
+lint-strict: 
+	@flake8 . --exclude=.venv,__pycache__,.mypy_cache,.env,env
+	@mypy . --warn-return-any --warn-unused-ignore \
+	 --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs\
+	 --strict
+	@$(MAKE) -s clean
+
+.PHONY: run install debug clean lint lint-strict

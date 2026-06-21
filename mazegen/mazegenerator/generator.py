@@ -7,13 +7,15 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/03 14:38:57 by varandri            #+#    #+#            #
-#   Updated: 2026/06/10 17:02:41 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/19 13:52:37 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
+from .algorithms import dfs_carver, prims_carver
+
 from .classes.maze import Maze
 from .classes.cell import Cell
-from .algorithms import prims_carver, dfs_carver, a_star
+from .algorithms import a_star
 from typing import Any
 
 
