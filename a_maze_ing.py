@@ -7,7 +7,7 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/04/29 17:00:15 by varandri            #+#    #+#            #
-#   Updated: 2026/06/19 15:12:41 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/21 13:01:15 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -18,7 +18,7 @@ if __name__ == "__main__":
         _, file = sys.argv
         a_maze_ing(file)
     except Exception as e:
-        print(f"Error: {e.__class__.__name__} - {e}")
+        print(f"Error: {e}")
         if e.__class__.__name__ == "ModuleNotFoundError":
             print("\n==== Follow the instructions bellow =====\n")
             print(

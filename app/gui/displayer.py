@@ -7,7 +7,7 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/24 10:58:25 by varandri            #+#    #+#            #
-#   Updated: 2026/06/19 14:44:21 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/21 12:23:05 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -17,7 +17,6 @@ from typing import Any
 from .renderer import Renderer
 from .colors import random_color, transparent, black
 from time import sleep
-from os import system
 
 
 class Static:
@@ -253,14 +252,6 @@ class MazeDisplayer:
             or finalizes the animation and triggers pattern/path drawing
             when generation completes.
             """
-            system("clear")
-            print("\nCommands to interact with the maze GUI\n")
-            print("=======================================\n")
-            print("R -    Regenerate a new maze.\n")
-            print("C -    Change the colors in the maze.\n")
-            print("p -    Show or hide the solution path.\n")
-            print("Q -    Quit and close the maze.")
-            print("\n=======================================")
             renderer = params[0]
             if statics.run:
                 if len(maze_steps):

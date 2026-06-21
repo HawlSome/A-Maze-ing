@@ -7,15 +7,14 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/03 14:38:57 by varandri            #+#    #+#            #
-#   Updated: 2026/06/19 13:52:37 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/21 12:16:15 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
-from .algorithms import dfs_carver, prims_carver
-
+from .algorithms import dfs_carver, prims_carver, a_star
+from .functions import process_config, validate_config
 from .classes.maze import Maze
 from .classes.cell import Cell
-from .algorithms import a_star
 from typing import Any
 
 
@@ -45,11 +44,16 @@ class MazeGenerator:
         Side Effects:
             Creates the maze, generates the carving steps, solves the
             maze, and writes the output file if possible.
+        Raises:
+            Exception: If its own validation fails.
         """
+        process_config(config)
+        validate_config(config)
         self._map: Maze = Maze(config)
         self._algorithm: str | None = config.get("algorithm", "dfs")
         self._seed: int | None = config.get("seed")
         self._perfection: bool | None = config.get("perfect")
+        self._imperfection_rate: float | None = config.get("imperfection_rate")
         self._gen_steps: list[
             (tuple[tuple[int, int], tuple[int, int]] | None)
         ] = []
@@ -99,13 +103,17 @@ class MazeGenerator:
         the default DFS) and stores the sequence of generation moves in
         `self._gen_steps`.
         """
+        if self._imperfection_rate is not None:
+            self._imperfection_rate = float(self._imperfection_rate)
         if self._algorithm and self._algorithm.lower() == "prims":
             self._gen_steps = prims_carver(
-                self._map, self._seed, self._perfection
+                self._map, self._seed, self._perfection,
+                self._imperfection_rate
             )
         else:
             self._gen_steps = dfs_carver(
-                self._map, self._seed, self._perfection
+                self._map, self._seed, self._perfection,
+                self._imperfection_rate
             )
         return None
 
