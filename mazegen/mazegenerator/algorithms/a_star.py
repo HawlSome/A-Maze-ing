@@ -4,10 +4,10 @@
 #                                                          :::      ::::::::  #
 #   a_star.py                                            :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
+#   By: nrasolom <nrasolom@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/14 12:33:22 by nrasolom            #+#    #+#            #
-#   Updated: 2026/06/10 14:31:31 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/06/21 13:15:07 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
