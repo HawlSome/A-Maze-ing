@@ -4,10 +4,10 @@
 #                                                          :::      ::::::::  #
 #   colors.py                                            :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
+#   By: nrasolom <nrasolom@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/06/01 13:16:48 by varandri            #+#    #+#            #
-#   Updated: 2026/06/10 13:59:41 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/06/21 14:28:43 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 

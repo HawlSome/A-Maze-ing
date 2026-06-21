@@ -4,10 +4,10 @@
 #                                                          :::      ::::::::  #
 #   directions.py                                        :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
+#   By: nrasolom <nrasolom@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/02 10:47:39 by varandri            #+#    #+#            #
-#   Updated: 2026/06/10 13:00:56 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/06/21 14:29:11 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 

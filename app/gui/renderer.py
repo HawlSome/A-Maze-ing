@@ -4,10 +4,10 @@
 #                                                          :::      ::::::::  #
 #   renderer.py                                          :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
+#   By: nrasolom <nrasolom@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/06/01 13:07:56 by varandri            #+#    #+#            #
-#   Updated: 2026/06/10 14:28:03 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/06/21 14:28:49 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 

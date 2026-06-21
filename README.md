@@ -190,8 +190,6 @@ A* is a good choice here because it is optimal for grid-based movement with unif
 
 The maze generation is implemented as a unique class named `MazeGenerator` inside a standalone module that can be imported in a future project. Documentations of the module can be found in the `README.md` file found inside the module.
 
-The reusable code is avalaible in a single file suitable for a later installation by pip. 
-
 ## Installation from wheel
 
 To install directly the reusable `mazegenerator` module as a standalone package, use the prebuilt wheel file `mazegen-1.0.0-py3-none-any.whl` :
@@ -199,8 +197,55 @@ To install directly the reusable `mazegenerator` module as a standalone package,
 ```bash
 pip install mazegen-1.0.0-py3-none-any.whl
 ```
-
 This installs only the `mazegenerator` module as a standalone package.
+
+## Usage instructions
+
+Import the mazegenerator module and instantiate `MazeGenerator` with a configuration dictionary. Generation and solving happen immediately when the object is created. 
+
+The configuration dictionary supports the same common parameters as per in the config file. The MazeGenerator process and validate the configuration before generating the maze and raise errors on invalid configuration key-value pair.
+
+Example:
+
+```python
+from mazegenerator import MazeGenerator
+
+config = {
+	"width": 20,
+	"height": 20,
+	"entry": (0, 0),
+	"exit": (19, 19),
+	"algorithm": "dfs",
+	"seed": 42,
+	"perfect": True,
+	"output_file": "maze.txt",
+	"imperfection-rate" : 0.2
+}
+
+generator = MazeGenerator(config)
+```
+The generator exposes public accessors for the maze data after generation.
+
+```python
+# Get the walls of one cell as (W, S, E, N)
+walls = generator.get_cell_walls(3, 4)
+
+# Get the full generation history as connected cell pairs
+steps = generator.get_generation_step()
+
+# Get the protected pattern cells, if any
+pattern_cells = generator.get_pattern_cells()
+
+# Get entry and exit coordinates
+entry = generator.get_maze_entry()
+exit_ = generator.get_maze_exit()
+```
+To access the solution:
+
+```python
+solution = generator.get_solution()
+```
+Each item in `solution` is an `(x, y)` coordinate. The path can be used to draw the final route, compare different algorithms, or verify that the maze is solvable. The text output file is written automatically when `MazeGenerator` is created.
 
 # Advanced features
 

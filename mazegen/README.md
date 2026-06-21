@@ -38,6 +38,7 @@ config = {
 	"seed": 42,
 	"perfect": True,
 	"output_file": "maze.txt",
+	"imperfection-rate" : 0.2
 }
 
 generator = MazeGenerator(config)
@@ -57,9 +58,13 @@ The configuration dictionary supports the following common parameters:
 - `seed`: optional integer seed for deterministic generation.
 - `perfect`: `True` for a perfect maze, `False` for an imperfect maze with loops.
 - `output_file`: path to the generated text output.
-- `imperfection-rate`: perceta 
+- `imperfection-rate`: percentage of imperfection (determine how many more walls to remove) 
 
 Entry and exit must be different inside the maze bounds. Using a seed makes the random carving reproducible. Setting `perfect=False` enables the imperfect post-processing pass that adds extra connections and alternate routes.
+
+The MazeGenerator process and validate the configuration before generating the maze and raise errors on invalid configuration key-value pair.
+
+To pass custom parameters, create a dictionnary of key as the supported parameter name and the value as value and pass it when instantiating the MazeGenerator object.
 
 ## Accessing the generated structure
 

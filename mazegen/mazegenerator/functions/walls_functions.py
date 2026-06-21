@@ -4,10 +4,10 @@
 #                                                          :::      ::::::::  #
 #   walls_functions.py                                   :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
+#   By: nrasolom <nrasolom@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/02 10:37:02 by varandri            #+#    #+#            #
-#   Updated: 2026/06/10 14:38:26 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/06/21 14:29:24 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 

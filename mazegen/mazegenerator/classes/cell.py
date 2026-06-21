@@ -4,10 +4,10 @@
 #                                                          :::      ::::::::  #
 #   cell.py                                              :+:      :+:    :+:  #
 #                                                      +:+ +:+         +:+    #
-#   By: nrasolom <nrasolom@student.42.fr>            +#+  +:+       +#+       #
+#   By: nrasolom <nrasolom@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/01 11:00:59 by varandri            #+#    #+#            #
-#   Updated: 2026/06/10 13:50:51 by nrasolom           ###   ########.fr      #
+#   Updated: 2026/06/21 14:29:07 by nrasolom           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
