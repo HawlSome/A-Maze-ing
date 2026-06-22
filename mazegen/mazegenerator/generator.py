@@ -7,7 +7,7 @@
 #   By: varandri <varandri@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/05/03 14:38:57 by varandri            #+#    #+#            #
-#   Updated: 2026/06/21 12:16:15 by varandri           ###   ########.fr      #
+#   Updated: 2026/06/22 10:35:35 by varandri           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -177,6 +177,14 @@ class MazeGenerator:
             of two connected cell.
         """
         return self._gen_steps
+
+    def get_maze(self) -> list[list[Cell]]:
+        """Get the generated structure of the maze.
+        Returns:
+            maze (list[list[Cell]]): a 2D list of Cells
+            representing the generated structure.
+        """
+        return self._map.get_cells()
 
     def get_solution(
             self

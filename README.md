@@ -226,6 +226,9 @@ generator = MazeGenerator(config)
 The generator exposes public accessors for the maze data after generation.
 
 ```python
+#Get the 2d Grid of the cells in the maze
+maze = generator.get_maze()
+
 # Get the walls of one cell as (W, S, E, N)
 walls = generator.get_cell_walls(3, 4)
 
